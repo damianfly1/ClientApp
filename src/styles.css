@@ -1,4 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~primeicons/primeicons.css';
+@import '~primeng/resources/themes/bootstrap4-light-blue/theme.css';
+@import '~primeng/resources/primeng.min.css';
 .center{
     justify-content: center;
     display: flex;
@@ -11,5 +14,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     display: flex;
     flex-direction: column;
     border: 1px solid;
-    border-color: yellow;
+    border-color: rgb(0, 162, 255);
+    /* border-radius: 5%; */
+    padding: 2em;
 }

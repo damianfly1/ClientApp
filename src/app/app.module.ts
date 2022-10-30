@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import {PanelModule} from 'primeng/panel';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,6 +16,7 @@ import { TopicDetailComponent } from './components/topic-detail/topic-detail.com
 import { PostsComponent } from './components/posts/posts.component';
 import { PostDetailComponent } from './components/post-detail/post-detail.component';
 import { ProfileAvatarComponent } from './components/profile-avatar/profile-avatar.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,8 @@ import { ProfileAvatarComponent } from './components/profile-avatar/profile-avat
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    NgbModule,
+    PanelModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
