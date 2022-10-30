@@ -1,9 +1,0 @@
-export { CreateCategoryDto } from './dtos/create-category-dto';
-export { CreatePostDto } from './dtos/create-post-dto';
-export { CreateSubForumDto } from './dtos/create-sub-forum-dto';
-export { CreateTopicDto } from './dtos/create-topic-dto';
-export { UpdateCategoryDto } from './dtos/update-category-dto';
-export { UpdateForumDto } from './dtos/update-forum-dto';
-export { UpdatePostDto } from './dtos/update-post-dto';
-export { UpdateSubForumDto } from './dtos/update-sub-forum-dto';
-export { UpdateTopicDto } from './dtos/update-topic-dto';

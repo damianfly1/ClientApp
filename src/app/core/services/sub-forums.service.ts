@@ -9,8 +9,8 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
-import { CreateTopicDto } from '../dtos/create-topic-dto';
-import { UpdateSubForumDto } from '../dtos/update-sub-forum-dto';
+import { CreateTopicDto } from '../models/create-topic-dto';
+import { UpdateSubForumDto } from '../models/update-sub-forum-dto';
 
 @Injectable({
   providedIn: 'root',

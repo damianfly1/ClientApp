@@ -1,8 +1,8 @@
-<p-panel header="Sport" class="box topcontainer">
-    <p-panel header="Piłka nożna" class="box subitem">
-        Wszystko o piłce
-    </p-panel>
-    <p-panel header="Siatkówka" class="box">
-        Wszystko o siatce
-    </p-panel>
-</p-panel>
+<div *ngFor="let category of categories" class="topcontainer">
+    <app-category-detail [category]="category"></app-category-detail>
+</div>
+<p-toolbar class="m-2">
+    <div class="p-toolbar-group-left">
+        <p-button label="Nowa" icon="pi pi-plus" class="mr-2"></p-button>
+    </div>
+</p-toolbar>

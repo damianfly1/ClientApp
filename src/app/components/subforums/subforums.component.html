@@ -1,1 +1,5 @@
-<p>subforums works!</p>
+<div *ngFor="let subforum of subforums" class="box">
+    <p-panel header={{subforum.name}}>
+        {{subforum.description}}
+    </p-panel>
+</div>

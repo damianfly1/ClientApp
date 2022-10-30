@@ -1,1 +1,17 @@
-<p>category-detail works!</p>
+<div *ngIf="!editing">
+<p-panel header={{category.name}} class="box topcontainer" >
+    <ng-template pTemplate="icons">
+        <button pButton class="p-panel-header-icon p-link" (click)="menu.toggle($event)">
+            <span class="pi pi-cog" color="white"></span>
+        </button>
+        <p-menu #menu id="config_menu" [model]="options" [popup]="true"></p-menu>
+</ng-template>
+    <app-subforums [subforums]="category.subforums"></app-subforums>
+</p-panel>
+</div>
+
+<div *ngIf="editing" class="box styles">
+    <h5>Nazwa</h5>
+    <input type="text" pInputText [(ngModel)]="category.name" value={{category.name}>
+    <button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded p-button-outlined" (click) = "update()"></button>
+</div>

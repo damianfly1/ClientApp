@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { SubForumNestedResponseDto } from 'src/app/core/models';
 
 @Component({
   selector: 'app-subforums',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./subforums.component.css']
 })
 export class SubforumsComponent implements OnInit {
+
+  @Input() subforums!: SubForumNestedResponseDto[] | null | undefined;
 
   constructor() { }
 

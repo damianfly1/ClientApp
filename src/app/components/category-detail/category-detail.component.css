@@ -1,0 +1,7 @@
+::ng-deep .p-panel .p-panel-header .p-panel-header-icon{
+    color: white;
+}
+
+.styles{
+    flex-direction: row;
+}

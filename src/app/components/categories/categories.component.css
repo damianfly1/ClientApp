@@ -1,5 +1,6 @@
 .topcontainer{
     width: 50em;
+    /* width: 950px; */
 }
 
 ::ng-deep .p-panel .p-panel-header{

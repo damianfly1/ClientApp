@@ -9,8 +9,9 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
-import { CreateCategoryDto } from '../dtos/create-category-dto';
-import { UpdateForumDto } from '../dtos/update-forum-dto';
+import { CreateCategoryDto } from '../models/create-category-dto';
+import { ForumNestedResponseDto } from '../models/forum-nested-response-dto';
+import { UpdateForumDto } from '../models/update-forum-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -26,19 +27,19 @@ export class ForumsService extends BaseService {
   /**
    * Path part for operation apiForumsIdGet
    */
-  static readonly ApiForumsIdGetPath = '/api/Forums/{id}';
+  static readonly ApiForumsIdGetPath = 'https://localhost:7153/api/Forums/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiForumsIdGet()` instead.
+   * To access only the response body, use `apiForumsIdGet$Plain()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiForumsIdGet$Response(params: {
+  apiForumsIdGet$Plain$Response(params: {
     id: string;
     context?: HttpContext
   }
-): Observable<StrictHttpResponse<void>> {
+): Observable<StrictHttpResponse<ForumNestedResponseDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, ForumsService.ApiForumsIdGetPath, 'get');
     if (params) {
@@ -47,30 +48,76 @@ export class ForumsService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'text',
-      accept: '*/*',
+      accept: 'text/plain',
       context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return r as StrictHttpResponse<ForumNestedResponseDto>;
       })
     );
   }
 
   /**
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `apiForumsIdGet$Response()` instead.
+   * To access the full response (for headers, for example), `apiForumsIdGet$Plain$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiForumsIdGet(params: {
+  apiForumsIdGet$Plain(params: {
     id: string;
     context?: HttpContext
   }
-): Observable<void> {
+): Observable<ForumNestedResponseDto> {
 
-    return this.apiForumsIdGet$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+    return this.apiForumsIdGet$Plain$Response(params).pipe(
+      map((r: StrictHttpResponse<ForumNestedResponseDto>) => r.body as ForumNestedResponseDto)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiForumsIdGet$Json()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiForumsIdGet$Json$Response(params: {
+    id: string;
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<ForumNestedResponseDto>> {
+
+    const rb = new RequestBuilder(this.rootUrl, ForumsService.ApiForumsIdGetPath, 'get');
+    if (params) {
+      rb.path('id', params.id, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'text/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<ForumNestedResponseDto>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `apiForumsIdGet$Json$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiForumsIdGet$Json(params: {
+    id: string;
+    context?: HttpContext
+  }
+): Observable<ForumNestedResponseDto> {
+
+    return this.apiForumsIdGet$Json$Response(params).pipe(
+      map((r: StrictHttpResponse<ForumNestedResponseDto>) => r.body as ForumNestedResponseDto)
     );
   }
 
@@ -131,7 +178,7 @@ export class ForumsService extends BaseService {
   /**
    * Path part for operation apiForumsIdCategoriesPost
    */
-  static readonly ApiForumsIdCategoriesPostPath = '/api/Forums/{id}/Categories';
+  static readonly ApiForumsIdCategoriesPostPath = 'https://localhost:7153/api/Forums/{id}/Categories';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.

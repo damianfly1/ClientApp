@@ -1,6 +1,14 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {PanelModule} from 'primeng/panel';
+import {MenuModule} from 'primeng/menu';
+import { MenuItem } from 'primeng/api';
+import {HttpClientModule} from '@angular/common/http';
+import {ToolbarModule} from 'primeng/toolbar';
+import {ButtonModule} from 'primeng/button';
+import {Chips, ChipsModule} from 'primeng/chips';
+import {FormsModule} from '@angular/forms'
+import {InputTextModule} from 'primeng/inputtext';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +26,10 @@ import { PostDetailComponent } from './components/post-detail/post-detail.compon
 import { ProfileAvatarComponent } from './components/profile-avatar/profile-avatar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+
+import { ForumsService } from './core/services';
+import { EditCategoryComponent } from './components/edit-category/edit-category.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,6 +44,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     PostsComponent,
     PostDetailComponent,
     ProfileAvatarComponent,
+    EditCategoryComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,6 +52,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     BrowserAnimationsModule,
     NgbModule,
     PanelModule,
+    HttpClientModule,
+    MenuModule,
+    ToolbarModule,
+    ButtonModule,
+    ChipsModule,
+    FormsModule,
+    InputTextModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

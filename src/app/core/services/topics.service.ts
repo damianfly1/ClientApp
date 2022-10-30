@@ -9,8 +9,8 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
-import { CreatePostDto } from '../dtos/create-post-dto';
-import { UpdateTopicDto } from '../dtos/update-topic-dto';
+import { CreatePostDto } from '../models/create-post-dto';
+import { UpdateTopicDto } from '../models/update-topic-dto';
 
 @Injectable({
   providedIn: 'root',

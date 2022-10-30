@@ -9,8 +9,8 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
-import { CreateSubForumDto } from '../dtos/create-sub-forum-dto';
-import { UpdateCategoryDto } from '../dtos/update-category-dto';
+import { CreateSubForumDto } from '../models/create-sub-forum-dto';
+import { UpdateCategoryDto } from '../models/update-category-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +26,7 @@ export class CategoriesService extends BaseService {
   /**
    * Path part for operation apiCategoriesIdPut
    */
-  static readonly ApiCategoriesIdPutPath = '/api/Categories/{id}';
+  static readonly ApiCategoriesIdPutPath = 'https://localhost:7153/api/Categories/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
