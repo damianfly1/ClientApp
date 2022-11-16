@@ -1,3 +1,14 @@
-<nav class="navbar navbar-dark bg-primary">
-    <span class="navbar-brand m-2 h1">ForumBase</span>
+<nav class="navbar navbar-dark" style="background-color:#2c374c;">
+    <span class="navbar-brand m-2 h1" [routerLink]="['/home']">ForumBase</span>
+    <div *ngIf="!isUserAuthenticated">
+    <span class="navbar-brand m-2 h1 ml-auto" >
+        <a pButton label="Zarejestruj się" [routerLink]="['/authentication/register']"></a>
+        <a pButton label="Zaloguj się" [routerLink]="['/authentication/login']"></a>
+    </span>
+    </div>
+    <div *ngIf="isUserAuthenticated">
+    <span class="navbar-brand m-2 h1 ml-auto" >
+        <a pButton label="Wyloguj się" (click)="logout()"></a>
+    </span>
+    </div>
 </nav>

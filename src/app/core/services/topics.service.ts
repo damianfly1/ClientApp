@@ -10,6 +10,9 @@ import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
 import { CreatePostDto } from '../models/create-post-dto';
+import { PostResponseDto } from '../models/post-response-dto';
+import { TopicParentNestedResponseDto } from '../models/topic-parent-nested-response-dto';
+import { TopicResponseDto } from '../models/topic-response-dto';
 import { UpdateTopicDto } from '../models/update-topic-dto';
 
 @Injectable({
@@ -26,19 +29,19 @@ export class TopicsService extends BaseService {
   /**
    * Path part for operation apiTopicsIdGet
    */
-  static readonly ApiTopicsIdGetPath = '/api/Topics/{id}';
+  static readonly ApiTopicsIdGetPath = 'https://localhost:7153/api/Topics/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiTopicsIdGet()` instead.
+   * To access only the response body, use `apiTopicsIdGet$Plain()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiTopicsIdGet$Response(params: {
+  apiTopicsIdGet$Plain$Response(params: {
     id: string;
     context?: HttpContext
   }
-): Observable<StrictHttpResponse<void>> {
+): Observable<StrictHttpResponse<TopicParentNestedResponseDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, TopicsService.ApiTopicsIdGetPath, 'get');
     if (params) {
@@ -47,50 +50,96 @@ export class TopicsService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'text',
-      accept: '*/*',
+      accept: 'text/plain',
       context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return r as StrictHttpResponse<TopicParentNestedResponseDto>;
       })
     );
   }
 
   /**
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `apiTopicsIdGet$Response()` instead.
+   * To access the full response (for headers, for example), `apiTopicsIdGet$Plain$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiTopicsIdGet(params: {
+  apiTopicsIdGet$Plain(params: {
     id: string;
     context?: HttpContext
   }
-): Observable<void> {
+): Observable<TopicParentNestedResponseDto> {
 
-    return this.apiTopicsIdGet$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+    return this.apiTopicsIdGet$Plain$Response(params).pipe(
+      map((r: StrictHttpResponse<TopicParentNestedResponseDto>) => r.body as TopicParentNestedResponseDto)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiTopicsIdGet$Json()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiTopicsIdGet$Json$Response(params: {
+    id: string;
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<TopicParentNestedResponseDto>> {
+
+    const rb = new RequestBuilder(this.rootUrl, TopicsService.ApiTopicsIdGetPath, 'get');
+    if (params) {
+      rb.path('id', params.id, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'text/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<TopicParentNestedResponseDto>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `apiTopicsIdGet$Json$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiTopicsIdGet$Json(params: {
+    id: string;
+    context?: HttpContext
+  }
+): Observable<TopicParentNestedResponseDto> {
+
+    return this.apiTopicsIdGet$Json$Response(params).pipe(
+      map((r: StrictHttpResponse<TopicParentNestedResponseDto>) => r.body as TopicParentNestedResponseDto)
     );
   }
 
   /**
    * Path part for operation apiTopicsIdPut
    */
-  static readonly ApiTopicsIdPutPath = '/api/Topics/{id}';
+  static readonly ApiTopicsIdPutPath = 'https://localhost:7153/api/Topics/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiTopicsIdPut()` instead.
+   * To access only the response body, use `apiTopicsIdPut$Plain()` instead.
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  apiTopicsIdPut$Response(params: {
+  apiTopicsIdPut$Plain$Response(params: {
     id: string;
     context?: HttpContext
     body?: UpdateTopicDto
   }
-): Observable<StrictHttpResponse<void>> {
+): Observable<StrictHttpResponse<TopicResponseDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, TopicsService.ApiTopicsIdPutPath, 'put');
     if (params) {
@@ -100,50 +149,99 @@ export class TopicsService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'text',
-      accept: '*/*',
+      accept: 'text/plain',
       context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return r as StrictHttpResponse<TopicResponseDto>;
       })
     );
   }
 
   /**
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `apiTopicsIdPut$Response()` instead.
+   * To access the full response (for headers, for example), `apiTopicsIdPut$Plain$Response()` instead.
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  apiTopicsIdPut(params: {
+  apiTopicsIdPut$Plain(params: {
     id: string;
     context?: HttpContext
     body?: UpdateTopicDto
   }
-): Observable<void> {
+): Observable<TopicResponseDto> {
 
-    return this.apiTopicsIdPut$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+    return this.apiTopicsIdPut$Plain$Response(params).pipe(
+      map((r: StrictHttpResponse<TopicResponseDto>) => r.body as TopicResponseDto)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiTopicsIdPut$Json()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  apiTopicsIdPut$Json$Response(params: {
+    id: string;
+    context?: HttpContext
+    body?: UpdateTopicDto
+  }
+): Observable<StrictHttpResponse<TopicResponseDto>> {
+
+    const rb = new RequestBuilder(this.rootUrl, TopicsService.ApiTopicsIdPutPath, 'put');
+    if (params) {
+      rb.path('id', params.id, {});
+      rb.body(params.body, 'application/*+json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'text/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<TopicResponseDto>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `apiTopicsIdPut$Json$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  apiTopicsIdPut$Json(params: {
+    id: string;
+    context?: HttpContext
+    body?: UpdateTopicDto
+  }
+): Observable<TopicResponseDto> {
+
+    return this.apiTopicsIdPut$Json$Response(params).pipe(
+      map((r: StrictHttpResponse<TopicResponseDto>) => r.body as TopicResponseDto)
     );
   }
 
   /**
    * Path part for operation apiTopicsIdDelete
    */
-  static readonly ApiTopicsIdDeletePath = '/api/Topics/{id}';
+  static readonly ApiTopicsIdDeletePath = 'https://localhost:7153/api/Topics/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiTopicsIdDelete()` instead.
+   * To access only the response body, use `apiTopicsIdDelete$Plain()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiTopicsIdDelete$Response(params: {
+  apiTopicsIdDelete$Plain$Response(params: {
     id: string;
     context?: HttpContext
   }
-): Observable<StrictHttpResponse<void>> {
+): Observable<StrictHttpResponse<TopicResponseDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, TopicsService.ApiTopicsIdDeletePath, 'delete');
     if (params) {
@@ -152,50 +250,96 @@ export class TopicsService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'text',
-      accept: '*/*',
+      accept: 'text/plain',
       context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return r as StrictHttpResponse<TopicResponseDto>;
       })
     );
   }
 
   /**
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `apiTopicsIdDelete$Response()` instead.
+   * To access the full response (for headers, for example), `apiTopicsIdDelete$Plain$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiTopicsIdDelete(params: {
+  apiTopicsIdDelete$Plain(params: {
     id: string;
     context?: HttpContext
   }
-): Observable<void> {
+): Observable<TopicResponseDto> {
 
-    return this.apiTopicsIdDelete$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+    return this.apiTopicsIdDelete$Plain$Response(params).pipe(
+      map((r: StrictHttpResponse<TopicResponseDto>) => r.body as TopicResponseDto)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiTopicsIdDelete$Json()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiTopicsIdDelete$Json$Response(params: {
+    id: string;
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<TopicResponseDto>> {
+
+    const rb = new RequestBuilder(this.rootUrl, TopicsService.ApiTopicsIdDeletePath, 'delete');
+    if (params) {
+      rb.path('id', params.id, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'text/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<TopicResponseDto>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `apiTopicsIdDelete$Json$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiTopicsIdDelete$Json(params: {
+    id: string;
+    context?: HttpContext
+  }
+): Observable<TopicResponseDto> {
+
+    return this.apiTopicsIdDelete$Json$Response(params).pipe(
+      map((r: StrictHttpResponse<TopicResponseDto>) => r.body as TopicResponseDto)
     );
   }
 
   /**
    * Path part for operation apiTopicsIdPostsPost
    */
-  static readonly ApiTopicsIdPostsPostPath = '/api/Topics/{id}/Posts';
+  static readonly ApiTopicsIdPostsPostPath = 'https://localhost:7153/api/Topics/{id}/Posts';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiTopicsIdPostsPost()` instead.
+   * To access only the response body, use `apiTopicsIdPostsPost$Plain()` instead.
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  apiTopicsIdPostsPost$Response(params: {
+  apiTopicsIdPostsPost$Plain$Response(params: {
     id: string;
     context?: HttpContext
     body?: CreatePostDto
   }
-): Observable<StrictHttpResponse<void>> {
+): Observable<StrictHttpResponse<PostResponseDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, TopicsService.ApiTopicsIdPostsPostPath, 'post');
     if (params) {
@@ -205,31 +349,80 @@ export class TopicsService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'text',
-      accept: '*/*',
+      accept: 'text/plain',
       context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return r as StrictHttpResponse<PostResponseDto>;
       })
     );
   }
 
   /**
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `apiTopicsIdPostsPost$Response()` instead.
+   * To access the full response (for headers, for example), `apiTopicsIdPostsPost$Plain$Response()` instead.
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  apiTopicsIdPostsPost(params: {
+  apiTopicsIdPostsPost$Plain(params: {
     id: string;
     context?: HttpContext
     body?: CreatePostDto
   }
-): Observable<void> {
+): Observable<PostResponseDto> {
 
-    return this.apiTopicsIdPostsPost$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+    return this.apiTopicsIdPostsPost$Plain$Response(params).pipe(
+      map((r: StrictHttpResponse<PostResponseDto>) => r.body as PostResponseDto)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiTopicsIdPostsPost$Json()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  apiTopicsIdPostsPost$Json$Response(params: {
+    id: string;
+    context?: HttpContext
+    body?: CreatePostDto
+  }
+): Observable<StrictHttpResponse<PostResponseDto>> {
+
+    const rb = new RequestBuilder(this.rootUrl, TopicsService.ApiTopicsIdPostsPostPath, 'post');
+    if (params) {
+      rb.path('id', params.id, {});
+      rb.body(params.body, 'application/*+json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'text/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<PostResponseDto>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `apiTopicsIdPostsPost$Json$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  apiTopicsIdPostsPost$Json(params: {
+    id: string;
+    context?: HttpContext
+    body?: CreatePostDto
+  }
+): Observable<PostResponseDto> {
+
+    return this.apiTopicsIdPostsPost$Json$Response(params).pipe(
+      map((r: StrictHttpResponse<PostResponseDto>) => r.body as PostResponseDto)
     );
   }
 

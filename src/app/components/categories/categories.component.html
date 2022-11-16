@@ -1,8 +1,23 @@
 <div *ngFor="let category of categories" class="topcontainer">
-    <app-category-detail [category]="category"></app-category-detail>
+    <app-category-detail [category]="category" (removeCategory)="removeCategory($event)"></app-category-detail>
 </div>
+
 <p-toolbar class="m-2">
     <div class="p-toolbar-group-left">
-        <p-button label="Nowa" icon="pi pi-plus" class="mr-2"></p-button>
+        <p-button label="Nowa kategoria" icon="pi pi-plus" class="mr-2" (click) = "startAddingNewCategory()"></p-button>
     </div>
 </p-toolbar>
+
+<div *ngIf="addingNewCategory">
+<p-dialog header="Dodaj nową kategorię" [(visible)]="addingNewCategory" [modal]="true" [style]="{width: '50vw'}" [draggable]="false" [resizable]="false">
+    <h5>Nazwa</h5>
+    <input type="text" pInputText [(ngModel)] = "newCategory.name"> 
+    <h5>Opis</h5>
+    <textarea pInputTextarea [(ngModel)] = "newCategory.description"></textarea>
+    <h5>Tylko dla moderatorów</h5>
+    <p-inputSwitch [(ngModel)]="newCategory.isModerationOnly"></p-inputSwitch>
+        <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="addNewCategory()" label="Ok" styleClass="p-button-text"></p-button>
+        </ng-template>
+</p-dialog>
+</div>

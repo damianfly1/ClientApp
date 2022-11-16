@@ -2,6 +2,6 @@
     color: white;
 }
 
-.styles{
-    flex-direction: row;
+:host ::ng-deep .p-panel .p-panel-content{
+    background-color: #fff;
 }

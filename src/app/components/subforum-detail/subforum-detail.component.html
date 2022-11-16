@@ -1,1 +1,21 @@
-<p>subforum-detail works!</p>
+<div *ngIf="!editing">
+    <p-panel header={{subForum.name}} class="" >
+        <ng-template pTemplate="icons">
+            <button pButton class="p-panel-header-icon p-link" (click)="menu.toggle($event)">
+                <span class="pi pi-cog" color="white"></span>
+            </button>
+            <p-menu #menu id="config_menu" [model]="options" [popup]="true"></p-menu>
+            <!-- <span class="pi pi-arrow-circle-right m-1" color="white"></span> -->
+    </ng-template>
+        <p style="color: #2c374c;" *ngIf="subForum.description!=''">{{subForum.description}}</p>
+        <a [routerLink]="['/subforums',subForum.id]">Kliknij tutaj, aby przejść do działu</a>
+    </p-panel>
+</div>
+    
+<div *ngIf="editing" class="">
+    <h5>Nazwa</h5>
+    <input type="text" pInputText [(ngModel)] = "subForum.name"> 
+    <h5>Opis</h5>
+    <textarea pInputTextarea [(ngModel)] = "subForum.description"></textarea>
+    <p-button icon="pi pi-check" (click)="update()" label="Ok" styleClass="p-button-text"></p-button>
+</div>

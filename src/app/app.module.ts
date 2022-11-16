@@ -3,12 +3,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import {PanelModule} from 'primeng/panel';
 import {MenuModule} from 'primeng/menu';
 import { MenuItem } from 'primeng/api';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {ToolbarModule} from 'primeng/toolbar';
 import {ButtonModule} from 'primeng/button';
 import {Chips, ChipsModule} from 'primeng/chips';
-import {FormsModule} from '@angular/forms'
+import {FormsModule, ReactiveFormsModule} from '@angular/forms'
 import {InputTextModule} from 'primeng/inputtext';
+import {DialogModule} from 'primeng/dialog';
+import {InputTextareaModule} from 'primeng/inputtextarea';
+import {Table, TableModule} from 'primeng/table';
+import {ToastModule} from 'primeng/toast';
+import {AvatarModule} from 'primeng/avatar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,10 +30,17 @@ import { PostsComponent } from './components/posts/posts.component';
 import { PostDetailComponent } from './components/post-detail/post-detail.component';
 import { ProfileAvatarComponent } from './components/profile-avatar/profile-avatar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {InputSwitchModule} from 'primeng/inputswitch';
+import { LoginComponent } from './components/login/login.component';
+import { MainComponent } from './components/main/main.component';
+import { ErrorHandlerService } from './core/services/error-handler.service';
+import { JwtModule } from "@auth0/angular-jwt";
+import { SubforumComponent } from './components/subforum/subforum.component';
+import { UserInfoComponent } from './components/user-info/user-info.component';
 
-
-import { ForumsService } from './core/services';
-import { EditCategoryComponent } from './components/edit-category/edit-category.component';
+export function tokenGetter() {
+  return localStorage.getItem("token");
+}
 
 @NgModule({
   declarations: [
@@ -44,7 +56,10 @@ import { EditCategoryComponent } from './components/edit-category/edit-category.
     PostsComponent,
     PostDetailComponent,
     ProfileAvatarComponent,
-    EditCategoryComponent,
+    LoginComponent,
+    MainComponent,
+    SubforumComponent,
+    UserInfoComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,8 +74,27 @@ import { EditCategoryComponent } from './components/edit-category/edit-category.
     ChipsModule,
     FormsModule,
     InputTextModule,
+    DialogModule,
+    InputTextModule,
+    InputSwitchModule,
+    InputTextareaModule,
+    TableModule,
+    ReactiveFormsModule,
+    ToastModule,
+    AvatarModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ["localhost:5001"],
+        disallowedRoutes: []
+      }
+    })
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: ErrorHandlerService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

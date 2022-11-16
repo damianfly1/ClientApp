@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { SubForumNestedResponseDto } from 'src/app/core/models';
+import { CreateSubForumDto, SubForumNestedResponseDto, UpdateSubForumDto } from 'src/app/core/models';
+import { CategoriesService } from 'src/app/core/services';
 
 @Component({
   selector: 'app-subforums',
@@ -8,11 +9,34 @@ import { SubForumNestedResponseDto } from 'src/app/core/models';
 })
 export class SubforumsComponent implements OnInit {
 
-  @Input() subforums!: SubForumNestedResponseDto[] | null | undefined;
+  @Input() subForums: SubForumNestedResponseDto[] | null | undefined = {} as Array<SubForumNestedResponseDto>;
+  @Input() categoryId = '';
 
-  constructor() { }
+  newSubForum: CreateSubForumDto = {} as CreateSubForumDto;
+  addingNewSubForum = false;
+  createdNewSubForum: SubForumNestedResponseDto = {} as SubForumNestedResponseDto;
+  updateDto: UpdateSubForumDto = {} as UpdateSubForumDto;
+
+  constructor(private categoriesService : CategoriesService) { }
 
   ngOnInit(): void {
+  }
+
+  addNewSubForum(){
+    this.categoriesService.apiCategoriesIdSubForumsPost$Json({id:this.categoryId, body: this.newSubForum})
+    .subscribe(subForum => {
+      Object.assign(this.createdNewSubForum, subForum);
+      this.subForums?.push(this.createdNewSubForum);
+    });
+    this.addingNewSubForum = false;
+  }
+
+  removeSubForum(subForumId : string){
+    this.subForums = this.subForums?.filter(item => item.id !== subForumId);
+  }
+
+  startAddingNewSubForum(){
+    this.addingNewSubForum = true;
   }
 
 }

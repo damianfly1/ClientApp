@@ -2,19 +2,21 @@
 @import '~primeicons/primeicons.css';
 @import '~primeng/resources/themes/bootstrap4-light-blue/theme.css';
 @import '~primeng/resources/primeng.min.css';
+
 .center{
     justify-content: center;
     display: flex;
 }
-html, body { height: 100%; }
+html, body { height: 100%;}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .box{
-    margin-top: 1em;
+    /* margin-top: 1em;
     display: flex;
-    flex-direction: column;
+    flex-direction: column; 
     border: 1px solid;
     border-color: rgb(0, 162, 255);
     border-radius: 3%;
-    padding: 1em;
+    padding: 10px;  */
 }
+

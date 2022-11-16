@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { CategoryNestedResponseDto } from 'src/app/core/models';
 import { UpdateCategoryDto } from 'src/app/core/models';
@@ -11,10 +11,10 @@ import { CategoriesService } from 'src/app/core/services';
 })
 export class CategoryDetailComponent implements OnInit {
   
-  @Input() category!: CategoryNestedResponseDto;
-  
+  @Input() category: CategoryNestedResponseDto = {} as CategoryNestedResponseDto;
+  @Output() removeCategory: EventEmitter<any> = new EventEmitter();
   editing = false;
-  updateDto!: UpdateCategoryDto;
+  updateDto: UpdateCategoryDto = {} as UpdateCategoryDto;
 
   options: MenuItem[] = [{
     label: 'Opcje',
@@ -42,7 +42,8 @@ export class CategoryDetailComponent implements OnInit {
   }
 
   delete() {
-    throw new Error('Method not implemented.');
+    this.categoriesService.apiCategoriesIdDelete$Json({id: this.category.id!}).subscribe();
+    this.removeCategory.emit(this.category.id);
   }
   startEditing() {
     this.editing = true;
@@ -50,9 +51,8 @@ export class CategoryDetailComponent implements OnInit {
   update(){
     console.log(this.category);
     this.updateDto = {name: this.category.name, description: this.category.description, isModerationOnly: this.category.isModerationOnly}
-    this.categoriesService.apiCategoriesIdPut({id: this.category.id!, body: this.updateDto}).subscribe();
+    this.categoriesService.apiCategoriesIdPut$Json({id: this.category.id!, body: this.updateDto}).subscribe();
     this.editing = false;
-
   }
 
 }

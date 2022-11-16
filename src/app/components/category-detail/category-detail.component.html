@@ -1,17 +1,22 @@
 <div *ngIf="!editing">
-<p-panel header={{category.name}} class="box topcontainer" >
+<p-panel header={{category.name}} class="" >
     <ng-template pTemplate="icons">
         <button pButton class="p-panel-header-icon p-link" (click)="menu.toggle($event)">
             <span class="pi pi-cog" color="white"></span>
         </button>
         <p-menu #menu id="config_menu" [model]="options" [popup]="true"></p-menu>
-</ng-template>
-    <app-subforums [subforums]="category.subforums"></app-subforums>
+    </ng-template>
+    <p style="color: #2c374c; font-weight:bold;" *ngIf="category.description!=''">{{category.description}}</p>
+    <app-subforums [subForums]="category.subforums" [categoryId]="category.id!"></app-subforums>
 </p-panel>
 </div>
 
-<div *ngIf="editing" class="box styles">
+<div *ngIf="editing" class="">
     <h5>Nazwa</h5>
-    <input type="text" pInputText [(ngModel)]="category.name" value={{category.name}>
-    <button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded p-button-outlined" (click) = "update()"></button>
+    <input type="text" pInputText [(ngModel)] = "category.name"> 
+    <h5>Opis</h5>
+    <textarea pInputTextarea [(ngModel)] = "category.description"></textarea>
+    <h5>Tylko dla moderatorów</h5>
+    <p-inputSwitch [(ngModel)]="category.isModerationOnly"></p-inputSwitch>
+    <p-button icon="pi pi-check" (click)="update()" label="Ok" styleClass="p-button-text"></p-button>
 </div>

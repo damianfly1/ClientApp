@@ -1,1 +1,19 @@
-<p>post-detail works!</p>
+<div style="width: 50rem; margin-left: auto; margin-right: auto;" >
+<p-panel header={{post.createdAt}} class="" >
+    <ng-template pTemplate="icons">
+        <button pButton class="p-panel-header-icon p-link" (click)="menu.toggle($event)">
+            <span class="pi pi-cog" color="white"></span>
+        </button>
+        <p-menu #menu id="config_menu" [model]="options" [popup]="true"></p-menu>
+    </ng-template>
+    <div style="display: flex; flex-direction: row">
+    <app-user-info></app-user-info>
+    <p style="color: #2c374c;">{{post.text}}</p>
+</div>
+</p-panel></div>
+
+<div *ngIf="editing" class="">
+    <h5>Treść</h5>
+    <textarea pInputTextarea [(ngModel)] = "post.text"></textarea>
+    <p-button icon="pi pi-check" (click)="update()" label="Ok" styleClass="p-button-text"></p-button>
+</div>

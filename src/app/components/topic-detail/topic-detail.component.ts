@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { TopicNestedResponseDto, TopicParentNestedResponseDto } from 'src/app/core/models';
+import { TopicsService } from 'src/app/core/services';
 
 @Component({
   selector: 'app-topic-detail',
@@ -7,9 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TopicDetailComponent implements OnInit {
 
-  constructor() { }
+  topicId: string | null = "";
+  topic: TopicParentNestedResponseDto = {} as TopicParentNestedResponseDto;
+  sub: any;
+
+  constructor(private topicsService: TopicsService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.sub=this.activatedRoute.paramMap.subscribe(params => { 
+      this.topicId = params.get('id'); 
+      this.topicsService.apiTopicsIdGet$Json({id: this.topicId!}).subscribe(
+      response =>{
+       this.topic = response;
+      })
+  });
   }
 
 }

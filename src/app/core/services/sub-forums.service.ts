@@ -10,6 +10,9 @@ import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
 import { CreateTopicDto } from '../models/create-topic-dto';
+import { SubForumParentNestedResponseDto } from '../models/sub-forum-parent-nested-response-dto';
+import { SubForumResponseDto } from '../models/sub-forum-response-dto';
+import { TopicResponseDto } from '../models/topic-response-dto';
 import { UpdateSubForumDto } from '../models/update-sub-forum-dto';
 
 @Injectable({
@@ -26,19 +29,19 @@ export class SubForumsService extends BaseService {
   /**
    * Path part for operation apiSubForumsIdGet
    */
-  static readonly ApiSubForumsIdGetPath = '/api/SubForums/{id}';
+  static readonly ApiSubForumsIdGetPath = 'https://localhost:7153/api/SubForums/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiSubForumsIdGet()` instead.
+   * To access only the response body, use `apiSubForumsIdGet$Plain()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiSubForumsIdGet$Response(params: {
+  apiSubForumsIdGet$Plain$Response(params: {
     id: string;
     context?: HttpContext
   }
-): Observable<StrictHttpResponse<void>> {
+): Observable<StrictHttpResponse<SubForumParentNestedResponseDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, SubForumsService.ApiSubForumsIdGetPath, 'get');
     if (params) {
@@ -47,50 +50,96 @@ export class SubForumsService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'text',
-      accept: '*/*',
+      accept: 'text/plain',
       context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return r as StrictHttpResponse<SubForumParentNestedResponseDto>;
       })
     );
   }
 
   /**
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `apiSubForumsIdGet$Response()` instead.
+   * To access the full response (for headers, for example), `apiSubForumsIdGet$Plain$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiSubForumsIdGet(params: {
+  apiSubForumsIdGet$Plain(params: {
     id: string;
     context?: HttpContext
   }
-): Observable<void> {
+): Observable<SubForumParentNestedResponseDto> {
 
-    return this.apiSubForumsIdGet$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+    return this.apiSubForumsIdGet$Plain$Response(params).pipe(
+      map((r: StrictHttpResponse<SubForumParentNestedResponseDto>) => r.body as SubForumParentNestedResponseDto)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiSubForumsIdGet$Json()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiSubForumsIdGet$Json$Response(params: {
+    id: string;
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<SubForumParentNestedResponseDto>> {
+
+    const rb = new RequestBuilder(this.rootUrl, SubForumsService.ApiSubForumsIdGetPath, 'get');
+    if (params) {
+      rb.path('id', params.id, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'text/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<SubForumParentNestedResponseDto>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `apiSubForumsIdGet$Json$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiSubForumsIdGet$Json(params: {
+    id: string;
+    context?: HttpContext
+  }
+): Observable<SubForumParentNestedResponseDto> {
+
+    return this.apiSubForumsIdGet$Json$Response(params).pipe(
+      map((r: StrictHttpResponse<SubForumParentNestedResponseDto>) => r.body as SubForumParentNestedResponseDto)
     );
   }
 
   /**
    * Path part for operation apiSubForumsIdPut
    */
-  static readonly ApiSubForumsIdPutPath = '/api/SubForums/{id}';
+  static readonly ApiSubForumsIdPutPath = 'https://localhost:7153/api/SubForums/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiSubForumsIdPut()` instead.
+   * To access only the response body, use `apiSubForumsIdPut$Plain()` instead.
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  apiSubForumsIdPut$Response(params: {
+  apiSubForumsIdPut$Plain$Response(params: {
     id: string;
     context?: HttpContext
     body?: UpdateSubForumDto
   }
-): Observable<StrictHttpResponse<void>> {
+): Observable<StrictHttpResponse<SubForumResponseDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, SubForumsService.ApiSubForumsIdPutPath, 'put');
     if (params) {
@@ -100,50 +149,99 @@ export class SubForumsService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'text',
-      accept: '*/*',
+      accept: 'text/plain',
       context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return r as StrictHttpResponse<SubForumResponseDto>;
       })
     );
   }
 
   /**
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `apiSubForumsIdPut$Response()` instead.
+   * To access the full response (for headers, for example), `apiSubForumsIdPut$Plain$Response()` instead.
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  apiSubForumsIdPut(params: {
+  apiSubForumsIdPut$Plain(params: {
     id: string;
     context?: HttpContext
     body?: UpdateSubForumDto
   }
-): Observable<void> {
+): Observable<SubForumResponseDto> {
 
-    return this.apiSubForumsIdPut$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+    return this.apiSubForumsIdPut$Plain$Response(params).pipe(
+      map((r: StrictHttpResponse<SubForumResponseDto>) => r.body as SubForumResponseDto)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiSubForumsIdPut$Json()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  apiSubForumsIdPut$Json$Response(params: {
+    id: string;
+    context?: HttpContext
+    body?: UpdateSubForumDto
+  }
+): Observable<StrictHttpResponse<SubForumResponseDto>> {
+
+    const rb = new RequestBuilder(this.rootUrl, SubForumsService.ApiSubForumsIdPutPath, 'put');
+    if (params) {
+      rb.path('id', params.id, {});
+      rb.body(params.body, 'application/*+json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'text/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<SubForumResponseDto>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `apiSubForumsIdPut$Json$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  apiSubForumsIdPut$Json(params: {
+    id: string;
+    context?: HttpContext
+    body?: UpdateSubForumDto
+  }
+): Observable<SubForumResponseDto> {
+
+    return this.apiSubForumsIdPut$Json$Response(params).pipe(
+      map((r: StrictHttpResponse<SubForumResponseDto>) => r.body as SubForumResponseDto)
     );
   }
 
   /**
    * Path part for operation apiSubForumsIdDelete
    */
-  static readonly ApiSubForumsIdDeletePath = '/api/SubForums/{id}';
+  static readonly ApiSubForumsIdDeletePath = 'https://localhost:7153/api/SubForums/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiSubForumsIdDelete()` instead.
+   * To access only the response body, use `apiSubForumsIdDelete$Plain()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiSubForumsIdDelete$Response(params: {
+  apiSubForumsIdDelete$Plain$Response(params: {
     id: string;
     context?: HttpContext
   }
-): Observable<StrictHttpResponse<void>> {
+): Observable<StrictHttpResponse<SubForumResponseDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, SubForumsService.ApiSubForumsIdDeletePath, 'delete');
     if (params) {
@@ -152,50 +250,96 @@ export class SubForumsService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'text',
-      accept: '*/*',
+      accept: 'text/plain',
       context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return r as StrictHttpResponse<SubForumResponseDto>;
       })
     );
   }
 
   /**
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `apiSubForumsIdDelete$Response()` instead.
+   * To access the full response (for headers, for example), `apiSubForumsIdDelete$Plain$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiSubForumsIdDelete(params: {
+  apiSubForumsIdDelete$Plain(params: {
     id: string;
     context?: HttpContext
   }
-): Observable<void> {
+): Observable<SubForumResponseDto> {
 
-    return this.apiSubForumsIdDelete$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+    return this.apiSubForumsIdDelete$Plain$Response(params).pipe(
+      map((r: StrictHttpResponse<SubForumResponseDto>) => r.body as SubForumResponseDto)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiSubForumsIdDelete$Json()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiSubForumsIdDelete$Json$Response(params: {
+    id: string;
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<SubForumResponseDto>> {
+
+    const rb = new RequestBuilder(this.rootUrl, SubForumsService.ApiSubForumsIdDeletePath, 'delete');
+    if (params) {
+      rb.path('id', params.id, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'text/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<SubForumResponseDto>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `apiSubForumsIdDelete$Json$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiSubForumsIdDelete$Json(params: {
+    id: string;
+    context?: HttpContext
+  }
+): Observable<SubForumResponseDto> {
+
+    return this.apiSubForumsIdDelete$Json$Response(params).pipe(
+      map((r: StrictHttpResponse<SubForumResponseDto>) => r.body as SubForumResponseDto)
     );
   }
 
   /**
    * Path part for operation apiSubForumsIdTopicsPost
    */
-  static readonly ApiSubForumsIdTopicsPostPath = '/api/SubForums/{id}/Topics';
+  static readonly ApiSubForumsIdTopicsPostPath = 'https://localhost:7153/api/SubForums/{id}/Topics';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiSubForumsIdTopicsPost()` instead.
+   * To access only the response body, use `apiSubForumsIdTopicsPost$Plain()` instead.
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  apiSubForumsIdTopicsPost$Response(params: {
+  apiSubForumsIdTopicsPost$Plain$Response(params: {
     id: string;
     context?: HttpContext
     body?: CreateTopicDto
   }
-): Observable<StrictHttpResponse<void>> {
+): Observable<StrictHttpResponse<TopicResponseDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, SubForumsService.ApiSubForumsIdTopicsPostPath, 'post');
     if (params) {
@@ -205,31 +349,80 @@ export class SubForumsService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'text',
-      accept: '*/*',
+      accept: 'text/plain',
       context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return r as StrictHttpResponse<TopicResponseDto>;
       })
     );
   }
 
   /**
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `apiSubForumsIdTopicsPost$Response()` instead.
+   * To access the full response (for headers, for example), `apiSubForumsIdTopicsPost$Plain$Response()` instead.
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  apiSubForumsIdTopicsPost(params: {
+  apiSubForumsIdTopicsPost$Plain(params: {
     id: string;
     context?: HttpContext
     body?: CreateTopicDto
   }
-): Observable<void> {
+): Observable<TopicResponseDto> {
 
-    return this.apiSubForumsIdTopicsPost$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+    return this.apiSubForumsIdTopicsPost$Plain$Response(params).pipe(
+      map((r: StrictHttpResponse<TopicResponseDto>) => r.body as TopicResponseDto)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiSubForumsIdTopicsPost$Json()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  apiSubForumsIdTopicsPost$Json$Response(params: {
+    id: string;
+    context?: HttpContext
+    body?: CreateTopicDto
+  }
+): Observable<StrictHttpResponse<TopicResponseDto>> {
+
+    const rb = new RequestBuilder(this.rootUrl, SubForumsService.ApiSubForumsIdTopicsPostPath, 'post');
+    if (params) {
+      rb.path('id', params.id, {});
+      rb.body(params.body, 'application/*+json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'text/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<TopicResponseDto>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `apiSubForumsIdTopicsPost$Json$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  apiSubForumsIdTopicsPost$Json(params: {
+    id: string;
+    context?: HttpContext
+    body?: CreateTopicDto
+  }
+): Observable<TopicResponseDto> {
+
+    return this.apiSubForumsIdTopicsPost$Json$Response(params).pipe(
+      map((r: StrictHttpResponse<TopicResponseDto>) => r.body as TopicResponseDto)
     );
   }
 
