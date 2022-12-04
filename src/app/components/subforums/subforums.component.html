@@ -2,7 +2,7 @@
     <app-subforum-detail [subForum]="subForum" (removeSubForum)="removeSubForum($event)"></app-subforum-detail>
 </div>
 
-<div style="width:70rem; margin-left: auto; margin-right: auto;">
+<div style="width:70rem; margin-left: auto; margin-right: auto;" *ngIf="userRole=='Administrator'">
 <p-toolbar class="m-2" >
     <div class="p-toolbar-group-left">
         <p-button label="Nowy dział" icon="pi pi-plus" class="mr-2" (click) = "startAddingNewSubForum()"></p-button>

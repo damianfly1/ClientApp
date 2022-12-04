@@ -394,12 +394,13 @@ export class TopicsService extends BaseService {
     if (params) {
       rb.path('id', params.id, {});
       rb.body(params.body, 'application/*+json');
+      rb.header('Authorization', 'Bearer ' + localStorage.getItem("token"));
     }
 
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'text/json',
-      context: params?.context
+      context: params?.context,
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {

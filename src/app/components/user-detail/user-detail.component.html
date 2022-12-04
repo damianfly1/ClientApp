@@ -1,0 +1,28 @@
+<div style="width: 50rem; margin-left: auto; margin-right: auto; margin-top: 2em;" >
+    <p-panel header class="" >
+        <ng-template pTemplate="icons">
+            <button pButton class="p-panel-header-icon p-link" (click)="menu.toggle($event)" *ngIf="userRole==='Administrator' || userRole==='Moderator'">
+                <span class="pi pi-cog" color="white"></span>
+            </button>
+            <p-menu #menu id="config_menu" [model]="options" [popup]="true"></p-menu>
+        </ng-template>
+        <div style="display: flex; flex-direction: row">
+            <div style="display: flex; flex-direction: column">
+                <div *ngIf = 'user.avatarUrl != null'>
+                    <img [src]="createImgPath(user.avatarUrl)" alt="profile picture" style="width:60px; height:60px;">
+                    </div>
+                    <div *ngIf = 'user.avatarUrl == null'>
+                    <p-avatar icon="pi pi-user" styleClass="mr-2" size="xlarge"></p-avatar>
+                    </div>
+        <p style="color: #2c374c;">{{user.nickName}}</p>
+    </div>
+    <div style="display: flex; flex-direction: column; margin-left: 3em;">
+    <span>Liczba postów: {{user.postCount}}</span>
+    <span>Rola: {{user.role}}</span>
+    <span>Konto założone: {{user.createdAt | date:'short'}}</span>
+    <div *ngIf="isOwner()">
+    <app-upload [userId]="user.id"></app-upload>
+    </div>
+    </div>
+    </div>
+</p-panel></div>

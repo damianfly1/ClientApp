@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CategoryNestedResponseDto, CreateCategoryDto } from 'src/app/core/models';
 import { ForumsService } from 'src/app/core/services';
+import { AuthenticationService } from 'src/app/core/services/authentication.service';
 
 @Component({
   selector: 'app-categories',
@@ -15,10 +16,18 @@ export class CategoriesComponent implements OnInit {
   newCategory: CreateCategoryDto = {} as CreateCategoryDto;
   addingNewCategory = false;
   createdNewCategory: CategoryNestedResponseDto = {} as CategoryNestedResponseDto;
+  userRole: string | null | undefined = null;
 
-  constructor(private forumsService : ForumsService) { }
+  constructor(private forumsService : ForumsService, private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
+    if(this.authenticationService.isUserAuthenticated()){
+      this.userRole = this.authenticationService.getUserRole()!;
+    }
+    this.authenticationService.authChanged
+    .subscribe(res => {
+      this.userRole = null;
+    })
   }
 
   addNewCategory(){

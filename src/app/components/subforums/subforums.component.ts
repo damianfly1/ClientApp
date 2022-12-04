@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CreateSubForumDto, SubForumNestedResponseDto, UpdateSubForumDto } from 'src/app/core/models';
 import { CategoriesService } from 'src/app/core/services';
+import { AuthenticationService } from 'src/app/core/services/authentication.service';
 
 @Component({
   selector: 'app-subforums',
@@ -16,10 +17,18 @@ export class SubforumsComponent implements OnInit {
   addingNewSubForum = false;
   createdNewSubForum: SubForumNestedResponseDto = {} as SubForumNestedResponseDto;
   updateDto: UpdateSubForumDto = {} as UpdateSubForumDto;
+  userRole: string | null = null;
 
-  constructor(private categoriesService : CategoriesService) { }
+  constructor(private categoriesService : CategoriesService, private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
+    if(this.authenticationService.isUserAuthenticated()){
+      this.userRole = this.authenticationService.getUserRole()!;
+      }
+      this.authenticationService.authChanged
+      .subscribe(res => {
+        this.userRole = null;
+      })
   }
 
   addNewSubForum(){

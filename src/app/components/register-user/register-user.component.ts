@@ -18,9 +18,8 @@ export class RegisterUserComponent implements OnInit {
   constructor(private authService: AuthenticationService, private passConfValidator: PasswordConfirmationValidatorService, private router: Router) { }
   ngOnInit(): void {
     this.registerForm = new FormGroup({
-      firstName: new FormControl(''),
-      lastName: new FormControl(''),
       email: new FormControl('', [Validators.required, Validators.email]),
+      nickName: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),
       confirm: new FormControl('')
     });
@@ -36,15 +35,15 @@ export class RegisterUserComponent implements OnInit {
   public registerUser = (registerFormValue: any) => {
     const formValues = { ...registerFormValue };
     const user: UserForRegistrationDto = {
-      firstName: formValues.firstName,
-      lastName: formValues.lastName,
       email: formValues.email,
+      nickname: formValues.nickName,
       password: formValues.password,
       confirmPassword: formValues.confirm
     };
+    console.log(user);
     this.authService.registerUser("api/users/registration", user)
     .subscribe({
-      next: (_) => this.router.navigate(["/authentication/login"]),
+      next: (_) => this.router.navigate(["login"]),
       error: (err: HttpErrorResponse) => console.log(err.error.errors)
     })
   }

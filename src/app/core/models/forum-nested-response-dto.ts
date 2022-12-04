@@ -6,4 +6,6 @@ export interface ForumNestedResponseDto {
   description?: null | string;
   id?: string;
   name?: null | string;
+  faq?: null | string;
+  rules?: null | string;
 }

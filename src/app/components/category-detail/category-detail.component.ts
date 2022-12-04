@@ -1,8 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { MenuItemContent } from 'primeng/menu';
 import { CategoryNestedResponseDto } from 'src/app/core/models';
 import { UpdateCategoryDto } from 'src/app/core/models';
 import { CategoriesService } from 'src/app/core/services';
+import { AuthenticationService } from 'src/app/core/services/authentication.service';
 
 @Component({
   selector: 'app-category-detail',
@@ -15,6 +17,7 @@ export class CategoryDetailComponent implements OnInit {
   @Output() removeCategory: EventEmitter<any> = new EventEmitter();
   editing = false;
   updateDto: UpdateCategoryDto = {} as UpdateCategoryDto;
+  userRole: string | null = null;
 
   options: MenuItem[] = [{
     label: 'Opcje',
@@ -36,9 +39,17 @@ export class CategoryDetailComponent implements OnInit {
     ]}
   ];
 
-  constructor(private categoriesService : CategoriesService) { }
+  constructor(private categoriesService : CategoriesService, 
+    private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
+    if(this.authenticationService.isUserAuthenticated()){
+      this.userRole = this.authenticationService.getUserRole()!;
+    }
+    this.authenticationService.authChanged
+    .subscribe(res => {
+      this.userRole = null;
+    })
   }
 
   delete() {

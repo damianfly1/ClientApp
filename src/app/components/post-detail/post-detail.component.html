@@ -1,14 +1,14 @@
-<div style="width: 50rem; margin-left: auto; margin-right: auto;" >
-<p-panel header={{post.createdAt}} class="" >
+<div style="width: 50rem; margin-left: auto; margin-right: auto; margin-top: 1em;" >
+<p-panel header="{{post.createdAt}}" class="" >
     <ng-template pTemplate="icons">
-        <button pButton class="p-panel-header-icon p-link" (click)="menu.toggle($event)">
+        <button pButton class="p-panel-header-icon p-link" (click)="menu.toggle($event)" *ngIf="userRole==='Administrator' || userRole==='Moderator'">
             <span class="pi pi-cog" color="white"></span>
         </button>
         <p-menu #menu id="config_menu" [model]="options" [popup]="true"></p-menu>
     </ng-template>
     <div style="display: flex; flex-direction: row">
-    <app-user-info></app-user-info>
-    <p style="color: #2c374c;">{{post.text}}</p>
+    <app-user-info [userId]="post.author!.id"></app-user-info>
+    <p style="color: #2c374c; margin-left: 1em;">{{post.text}}</p>
 </div>
 </p-panel></div>
 

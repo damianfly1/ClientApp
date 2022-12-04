@@ -1,7 +1,9 @@
+import { formatDate } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { PostNestedResponseDto, UpdatePostDto } from 'src/app/core/models';
 import { PostsService } from 'src/app/core/services';
+import { AuthenticationService } from 'src/app/core/services/authentication.service';
 
 @Component({
   selector: 'app-post-detail',
@@ -13,6 +15,7 @@ export class PostDetailComponent implements OnInit {
   @Output() removePost: EventEmitter<any> = new EventEmitter();
   editing = false;
   updateDto: UpdatePostDto = {} as UpdatePostDto;
+  userRole: string | null | undefined = null;
 
   options: MenuItem[] = [{
     label: 'Opcje',
@@ -34,9 +37,19 @@ export class PostDetailComponent implements OnInit {
     ]}
   ];
 
-  constructor(private postsService: PostsService) { }
+  constructor(private postsService: PostsService,
+    private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
+    if(this.authenticationService.isUserAuthenticated()){
+      this.userRole = this.authenticationService.getUserRole()!;
+    }
+    this.authenticationService.authChanged
+    .subscribe(res => {
+      this.userRole = null;
+    })
+    this.post.createdAt = this.getFormatedDate();
+    //console.log(this.post.createdAt);
   }
 
   delete() {
@@ -50,6 +63,9 @@ export class PostDetailComponent implements OnInit {
     this.updateDto = {text: this.post.text}
     this.postsService.apiPostsIdPut$Json({id: this.post.id!, body: this.updateDto}).subscribe();
     this.editing = false;
+  }
+  getFormatedDate(){
+    return formatDate(this.post.createdAt!, 'short', 'en');
   }
 
 }

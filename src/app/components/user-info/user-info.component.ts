@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { User } from 'src/app/core/models';
+import { UserResponseDto } from 'src/app/core/models/user-response-dto';
+import { UsersService } from 'src/app/core/services/users.service';
 
 @Component({
   selector: 'app-user-info',
@@ -7,9 +10,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserInfoComponent implements OnInit {
 
-  constructor() { }
+  @Input() userId!: string;
+  user: UserResponseDto = {} as UserResponseDto;
+
+  constructor(private usersService: UsersService) { }
 
   ngOnInit(): void {
+    this.usersService.getUser(this.userId!).subscribe(
+      response =>{
+        //console.log(this.userId);
+        //console.log(response);
+       this.user = response;
+       //console.log(this.user);
+      })
+  }
+
+  public createImgPath = (serverPath: any) => { 
+    return `https://localhost:7153/${serverPath}`; 
   }
 
 }

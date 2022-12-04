@@ -14,6 +14,7 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
 import {Table, TableModule} from 'primeng/table';
 import {ToastModule} from 'primeng/toast';
 import {AvatarModule} from 'primeng/avatar';
+import {FileUploadModule} from 'primeng/fileupload';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,7 +25,6 @@ import { CategoriesComponent } from './components/categories/categories.componen
 import { CategoryDetailComponent } from './components/category-detail/category-detail.component';
 import { SubforumsComponent } from './components/subforums/subforums.component';
 import { SubforumDetailComponent } from './components/subforum-detail/subforum-detail.component';
-import { TopicsComponent } from './components/topics/topics.component';
 import { TopicDetailComponent } from './components/topic-detail/topic-detail.component';
 import { PostsComponent } from './components/posts/posts.component';
 import { PostDetailComponent } from './components/post-detail/post-detail.component';
@@ -37,6 +37,10 @@ import { ErrorHandlerService } from './core/services/error-handler.service';
 import { JwtModule } from "@auth0/angular-jwt";
 import { SubforumComponent } from './components/subforum/subforum.component';
 import { UserInfoComponent } from './components/user-info/user-info.component';
+import { UserDetailComponent } from './components/user-detail/user-detail.component';
+import { UploadComponent } from './components/upload/upload.component';
+import { CommonModule } from '@angular/common';
+import { RegisterUserComponent } from './components/register-user/register-user.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -51,15 +55,17 @@ export function tokenGetter() {
     CategoryDetailComponent,
     SubforumsComponent,
     SubforumDetailComponent,
-    TopicsComponent,
     TopicDetailComponent,
     PostsComponent,
     PostDetailComponent,
     ProfileAvatarComponent,
+    RegisterUserComponent,
     LoginComponent,
     MainComponent,
     SubforumComponent,
     UserInfoComponent,
+    UserDetailComponent,
+    UploadComponent,
   ],
   imports: [
     BrowserModule,
@@ -82,6 +88,8 @@ export function tokenGetter() {
     ReactiveFormsModule,
     ToastModule,
     AvatarModule,
+    FileUploadModule,
+    CommonModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,

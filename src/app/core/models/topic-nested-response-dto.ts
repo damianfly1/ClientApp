@@ -7,6 +7,7 @@ export interface TopicNestedResponseDto {
   isClosed?: boolean;
   isPinned?: boolean;
   lastUpdatedAt?: string;
-  lastUpdatedBy?: User;
   name?: null | string;
+  responseCount: number;
+  viewCount: number;
 }

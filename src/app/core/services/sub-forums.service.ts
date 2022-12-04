@@ -394,6 +394,7 @@ export class SubForumsService extends BaseService {
     if (params) {
       rb.path('id', params.id, {});
       rb.body(params.body, 'application/*+json');
+      rb.header('Authorization', 'Bearer ' + localStorage.getItem("token"));
     }
 
     return this.http.request(rb.build({

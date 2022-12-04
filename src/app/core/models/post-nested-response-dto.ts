@@ -3,7 +3,6 @@
 import { User } from './user';
 export interface PostNestedResponseDto {
   author?: User;
-  authorId?: string;
   createdAt?: string;
   id?: string;
   isEdited?: boolean;

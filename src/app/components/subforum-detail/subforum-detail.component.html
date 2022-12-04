@@ -1,7 +1,7 @@
 <div *ngIf="!editing">
     <p-panel header={{subForum.name}} class="" >
         <ng-template pTemplate="icons">
-            <button pButton class="p-panel-header-icon p-link" (click)="menu.toggle($event)">
+            <button pButton class="p-panel-header-icon p-link" (click)="menu.toggle($event)" *ngIf="userRole==='Administrator'">
                 <span class="pi pi-cog" color="white"></span>
             </button>
             <p-menu #menu id="config_menu" [model]="options" [popup]="true"></p-menu>

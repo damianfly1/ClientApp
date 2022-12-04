@@ -6,6 +6,7 @@ import { UserAuthenticationDto } from '../models/user-authentication-dto';
 import { UserForRegistrationDto } from '../models/user-registration-dto';
 import { Subject } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { UsersService } from './users.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,13 +16,29 @@ export class AuthenticationService {
   private authChangeSub = new Subject<boolean>()
   public authChanged = this.authChangeSub.asObservable();
 
-  constructor(private http: HttpClient, private jwtHelper: JwtHelperService) { }
+  constructor(private http: HttpClient, private jwtHelper: JwtHelperService, private usersService: UsersService) { }
 
   public isUserAuthenticated = (): boolean => {
     const token = localStorage.getItem("token");
     var isTokenNotExpired = !this.jwtHelper.isTokenExpired(token!);
     var isThereToken = token != null;
     return isThereToken && isTokenNotExpired;
+  }
+
+  public getUserRole = (): string | null => {
+    const token = localStorage.getItem("token");
+    if(token == null) return null;
+    const decodedToken = this.jwtHelper.decodeToken(token!);
+    const role = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']
+    return role;
+  }
+
+  public getCurrentUserName = (): string | null => {
+    const token = localStorage.getItem("token");
+    if(token == null) return null;
+    const decodedToken = this.jwtHelper.decodeToken(token!);
+    const name = decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name']
+    return name;
   }
 
   public registerUser = (route: string, body: UserForRegistrationDto) => {

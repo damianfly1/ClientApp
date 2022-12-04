@@ -1,1 +1,9 @@
+<div style="display:flex; align-items: center; flex-direction: column;">
+<div *ngIf = 'user.avatarUrl != null'>
+<img [src]="createImgPath(user.avatarUrl)" alt="profile picture" style="width:60px; height:60px;">
+</div>
+<div *ngIf = 'user.avatarUrl == null'>
 <p-avatar icon="pi pi-user" styleClass="mr-2" size="xlarge"></p-avatar>
+</div>
+<p><a routerLink="/users/{{user.id}}">{{user.nickName}}</a></p>
+</div>

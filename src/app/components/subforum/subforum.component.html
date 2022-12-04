@@ -4,12 +4,46 @@
     <p-toolbar styleClass="mb-4 gap-2">
         <ng-template pTemplate="left">
             <h5>{{this.subforum.name}}</h5><br/>
-            <button pButton pRipple label="Załóż nowy temat" icon="pi pi-plus" class="p-button-success mr-2" (click)="startAddingNewTopic()"></button>
+            <div *ngIf="userRole!=null" style="margin-left:1em;">
+            <button pButton pRipple label="Załóż nowy temat" icon="pi pi-plus" class="p-button-success" (click)="startAddingNewTopic()"></button>
+            </div>  
             <!-- <button pButton pRipple icon="pi pi-trash" class="p-button-danger"></button> -->
         </ng-template>
     </p-toolbar>
-
-    <p-table #dt [value]="topics" [rows]="10" [paginator]="true" [globalFilterFields]="['name']" [tableStyle]="{'width': '60rem'}"
+    <div *ngIf="pinnedExist">
+    <p-table #dt [value]="pinned" [globalFilterFields]="['name']" [tableStyle]="{'width': '92em'}"
+         [rowHover]="true" dataKey="id">
+        <!-- currentPageReportTemplate="{first} do {last} z {totalRecords} tematów" [showCurrentPageReport]="true"> -->
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <h5 class="m-0">Wyróżnione tematy</h5>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="name" style="width:25rem">Nazwa</th>
+                <th style="width:10rem">Wyświetlenia</th>
+                <th style="width:10rem">Odpowiedzi</th>
+                <th pSortableColumn="lastUpdatedAt" style="width:15rem">Ostatnia aktywność<p-sortIcon field="name"></p-sortIcon></th>
+                <th style="width:15rem">Autor</th>
+                <th style="width:6rem"></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-topic>
+            <tr>
+                <td><a routerLink="/topics/{{topic.id}}">{{topic.name}}</a></td>
+                <td>{{topic.viewCount}}</td>
+                <td>{{topic.responseCount}}</td>
+                <td>{{topic.lastUpdatedAt | date:'short'}}</td>
+                <td><a routerLink="/users/{{topic.author.id}}">{{topic.author.nickName}}</a></td>
+                <td  class="text-center">
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="startEditingTopic(topic)" *ngIf="userRole==='Administrator' || userRole==='Moderator'"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    </div>
+    <p-table #dt [value]="normal" [rows]="10" [paginator]="true" [globalFilterFields]="['name']" [tableStyle]="{'width': '92em'}"
          [rowHover]="true" dataKey="id">
         <!-- currentPageReportTemplate="{first} do {last} z {totalRecords} tematów" [showCurrentPageReport]="true"> -->
         <ng-template pTemplate="caption">
@@ -19,23 +53,23 @@
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th pSortableColumn="name" style="width:22rem">Nazwa <p-sortIcon field="name"></p-sortIcon></th>
-                <th style="width:6rem">Wyświetlenia</th>
-                <th style="width:6rem">Ostatnia aktywność</th>
-                <th style="width:6rem">Autor</th>
-                <th pSortableColumn="price" style="width:6rem">Stworzone<p-sortIcon field="price"></p-sortIcon></th>
+                <th pSortableColumn="name" style="width:25rem">Nazwa</th>
+                <th style="width:10rem">Wyświetlenia</th>
+                <th style="width:10rem">Odpowiedzi</th>
+                <th pSortableColumn="lastUpdatedAt" style="width:15rem">Ostatnia aktywność<p-sortIcon field="name"></p-sortIcon></th>
+                <th style="width:15rem">Autor</th>
                 <th style="width:6rem"></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-topic>
             <tr>
                 <td><a routerLink="/topics/{{topic.id}}">{{topic.name}}</a></td>
-                <td >{{topic.id}}</td>
-                <td>essa</td>
-                <td>{{topic.Author}}</td>
-                <td>{{topic.LastUpdatedAt}}</td>
+                <td>{{topic.viewCount}}</td>
+                <td>{{topic.responseCount}}</td>
+                <td>{{topic.lastUpdatedAt | date:'short'}}</td>
+                <td><a routerLink="/users/{{topic.author.id}}">{{topic.author.nickName}}</a></td>
                 <td  class="text-center">
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="startEditingTopic(topic)"></button>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="startEditingTopic(topic)" *ngIf="userRole==='Administrator' || userRole==='Moderator'"></button>
                 </td>
             </tr>
         </ng-template>

@@ -2,12 +2,13 @@
     <span class="navbar-brand m-2 h1" [routerLink]="['/home']">ForumBase</span>
     <div *ngIf="!isUserAuthenticated">
     <span class="navbar-brand m-2 h1 ml-auto" >
-        <a pButton label="Zarejestruj się" [routerLink]="['/authentication/register']"></a>
-        <a pButton label="Zaloguj się" [routerLink]="['/authentication/login']"></a>
+        <a pButton label="Zarejestruj się" [routerLink]="['register']"></a>
+        <a pButton label="Zaloguj się" [routerLink]="['login']"></a>
     </span>
     </div>
     <div *ngIf="isUserAuthenticated">
     <span class="navbar-brand m-2 h1 ml-auto" >
+        <a pButton label="Panel użytkownika" routerLink="/users/{{userId}}"></a>
         <a pButton label="Wyloguj się" (click)="logout()"></a>
     </span>
     </div>

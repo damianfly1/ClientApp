@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { SubForumNestedResponseDto, UpdateSubForumDto } from 'src/app/core/models';
 import { SubForumsService } from 'src/app/core/services';
+import { AuthenticationService } from 'src/app/core/services/authentication.service';
 
 @Component({
   selector: 'app-subforum-detail',
@@ -14,6 +15,7 @@ export class SubforumDetailComponent implements OnInit {
   @Output() removeSubForum: EventEmitter<any> = new EventEmitter();
   editing = false;
   updateDto: UpdateSubForumDto = {} as UpdateSubForumDto;
+  userRole: string | null = null;
 
   options: MenuItem[] = [{
     label: 'Opcje',
@@ -35,9 +37,16 @@ export class SubforumDetailComponent implements OnInit {
     ]}
   ];
 
-  constructor(private subForumsService : SubForumsService) { }
+  constructor(private subForumsService : SubForumsService, private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
+    if(this.authenticationService.isUserAuthenticated()){
+      this.userRole = this.authenticationService.getUserRole()!;
+    }
+    this.authenticationService.authChanged
+    .subscribe(res => {
+      this.userRole = null;
+    })
   }
 
   delete() {
