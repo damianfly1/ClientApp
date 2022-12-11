@@ -1,14 +1,13 @@
 /* tslint:disable */
 /* eslint-disable */
+import { LikedByDto } from './liked-by-dto';
 import { User } from './user';
 export interface PostResponseDto {
-  authorId?: string;
+  author?: User;
   createdAt?: string;
-  id?: string;
-  isEdited?: boolean;
+  id: string;
   lastUpdatedAt?: string;
-  lastUpdatedBy?: User;
-  lastUpdatedById?: null | string;
-  rating?: number;
+  points: number;
   text?: null | string;
+  likedBy: Array<LikedByDto>
 }

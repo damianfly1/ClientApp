@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CreatePostDto, PostNestedResponseDto } from 'src/app/core/models';
+import { UserResponseDto } from 'src/app/core/models/user-response-dto';
 import { TopicsService } from 'src/app/core/services';
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
+import { UsersService } from 'src/app/core/services/users.service';
 
 @Component({
   selector: 'app-posts',
@@ -13,21 +15,26 @@ export class PostsComponent implements OnInit {
   @Input() posts: PostNestedResponseDto[] = {} as Array<PostNestedResponseDto>
   @Input() topicId = "";
   @Input() isClosed = false;
-  userRole: string | null | undefined = null;
+  user: UserResponseDto | null =null;
 
   newPost: CreatePostDto = {} as CreatePostDto;
   addingNewPost = false;
   createdNewPost: PostNestedResponseDto = {} as PostNestedResponseDto;
 
-  constructor(private topicsService: TopicsService, private authenticationService: AuthenticationService ) { }
+  constructor(private topicsService: TopicsService,
+     private authenticationService: AuthenticationService,
+     private usersService: UsersService ) { }
 
   ngOnInit(): void {
     if(this.authenticationService.isUserAuthenticated()){
-      this.userRole = this.authenticationService.getUserRole()!;
+      this.usersService.getLoggedUser().subscribe(res =>{
+        console.log(res);
+        this.user = res
+      } );
     }
     this.authenticationService.authChanged
     .subscribe(res => {
-      this.userRole = null;
+      this.user = null;
     })
   }
 

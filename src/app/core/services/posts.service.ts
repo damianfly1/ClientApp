@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse, HttpContext } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpContext, HttpHeaders } from '@angular/common/http';
 import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
@@ -39,7 +39,7 @@ export class PostsService extends BaseService {
     context?: HttpContext
     body?: UpdatePostDto
   }
-): Observable<StrictHttpResponse<PostResponseDto>> {
+  ): Observable<StrictHttpResponse<PostResponseDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, PostsService.ApiPostsIdPutPath, 'put');
     if (params) {
@@ -70,7 +70,7 @@ export class PostsService extends BaseService {
     context?: HttpContext
     body?: UpdatePostDto
   }
-): Observable<PostResponseDto> {
+  ): Observable<PostResponseDto> {
 
     return this.apiPostsIdPut$Plain$Response(params).pipe(
       map((r: StrictHttpResponse<PostResponseDto>) => r.body as PostResponseDto)
@@ -88,7 +88,7 @@ export class PostsService extends BaseService {
     context?: HttpContext
     body?: UpdatePostDto
   }
-): Observable<StrictHttpResponse<PostResponseDto>> {
+  ): Observable<StrictHttpResponse<PostResponseDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, PostsService.ApiPostsIdPutPath, 'put');
     if (params) {
@@ -119,7 +119,7 @@ export class PostsService extends BaseService {
     context?: HttpContext
     body?: UpdatePostDto
   }
-): Observable<PostResponseDto> {
+  ): Observable<PostResponseDto> {
 
     return this.apiPostsIdPut$Json$Response(params).pipe(
       map((r: StrictHttpResponse<PostResponseDto>) => r.body as PostResponseDto)
@@ -141,7 +141,7 @@ export class PostsService extends BaseService {
     id: string;
     context?: HttpContext
   }
-): Observable<StrictHttpResponse<PostResponseDto>> {
+  ): Observable<StrictHttpResponse<PostResponseDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, PostsService.ApiPostsIdDeletePath, 'delete');
     if (params) {
@@ -170,7 +170,7 @@ export class PostsService extends BaseService {
     id: string;
     context?: HttpContext
   }
-): Observable<PostResponseDto> {
+  ): Observable<PostResponseDto> {
 
     return this.apiPostsIdDelete$Plain$Response(params).pipe(
       map((r: StrictHttpResponse<PostResponseDto>) => r.body as PostResponseDto)
@@ -187,7 +187,7 @@ export class PostsService extends BaseService {
     id: string;
     context?: HttpContext
   }
-): Observable<StrictHttpResponse<PostResponseDto>> {
+  ): Observable<StrictHttpResponse<PostResponseDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, PostsService.ApiPostsIdDeletePath, 'delete');
     if (params) {
@@ -216,10 +216,106 @@ export class PostsService extends BaseService {
     id: string;
     context?: HttpContext
   }
-): Observable<PostResponseDto> {
+  ): Observable<PostResponseDto> {
 
     return this.apiPostsIdDelete$Json$Response(params).pipe(
       map((r: StrictHttpResponse<PostResponseDto>) => r.body as PostResponseDto)
+    );
+  }
+
+  static readonly ApiPostsUpvotePath = 'https://localhost:7153/api/Posts/{id}/upvote';
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `apiTopicsIdPostsPost$Plain$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  apiPostsUpvote$Plain(params: {
+    id: string;
+    context?: HttpContext
+  }
+  ): Observable<any> {
+
+    return this.apiPostUpvote$Json$Response(params).pipe(
+      map((r: StrictHttpResponse<any>) => r.body as any)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiTopicsIdPostsPost$Json()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  apiPostUpvote$Json$Response(params: {
+    id: string;
+    context?: HttpContext
+  }
+  ): Observable<StrictHttpResponse<any>> {
+
+    const rb = new RequestBuilder(this.rootUrl, PostsService.ApiPostsUpvotePath, 'post');
+    if (params) {
+      rb.path('id', params.id, {});
+      rb.header('Authorization', 'Bearer ' + localStorage.getItem("token"));
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'text/json',
+      context: params?.context,
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r;
+      })
+    );
+  }
+
+  static readonly ApiPostsDownvotePath = 'https://localhost:7153/api/Posts/{id}/downvote';
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `apiTopicsIdPostsPost$Plain$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  apiPostsDownvote$Plain(params: {
+    id: string;
+    context?: HttpContext
+  }
+  ): Observable<any> {
+
+    return this.apiPostDownvote$Json$Response(params).pipe(
+      map((r: StrictHttpResponse<any>) => r.body as any)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiTopicsIdPostsPost$Json()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  apiPostDownvote$Json$Response(params: {
+    id: string;
+    context?: HttpContext
+  }
+  ): Observable<StrictHttpResponse<any>> {
+
+    const rb = new RequestBuilder(this.rootUrl, PostsService.ApiPostsDownvotePath, 'post');
+    if (params) {
+      rb.path('id', params.id, {});
+      rb.header('Authorization', 'Bearer ' + localStorage.getItem("token"));
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'text/json',
+      context: params?.context,
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r;
+      })
     );
   }
 

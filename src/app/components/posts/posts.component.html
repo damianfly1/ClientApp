@@ -1,7 +1,7 @@
 <div *ngFor="let post of posts" class="topcontainer">
-    <app-post-detail [post]="post" (removePost)="removePost($event)"></app-post-detail>
+    <app-post-detail [post]="post" [user]="user" (removePost)="removePost($event)"></app-post-detail>
 </div>
-<div style="width: 50rem; margin-left: auto; margin-right: auto;" *ngIf="!isClosed && userRole!=null">
+<div style="width: 50rem; margin-left: auto; margin-right: auto;" *ngIf="!isClosed && user!=null">
 <p-toolbar class="m-2">
     <div class="p-toolbar-group-left">
         <p-button label="Nowy post" icon="pi pi-plus" class="mr-2" (click) = "startAddingNewPost()"></p-button>

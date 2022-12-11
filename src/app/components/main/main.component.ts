@@ -19,7 +19,7 @@ export class MainComponent implements OnInit {
     this.getForum();
   }
   getForum() {
-    this.ForumService.apiForumsIdGet$Json({id: this.forumId}).subscribe(forum => this.forum = forum);
+    this.ForumService.getForum().subscribe(forum => this.forum = forum);
     console.log(this.forum);
   }
 

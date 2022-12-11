@@ -6,7 +6,6 @@ import { UserAuthenticationDto } from '../models/user-authentication-dto';
 import { UserForRegistrationDto } from '../models/user-registration-dto';
 import { Subject } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { UsersService } from './users.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +15,7 @@ export class AuthenticationService {
   private authChangeSub = new Subject<boolean>()
   public authChanged = this.authChangeSub.asObservable();
 
-  constructor(private http: HttpClient, private jwtHelper: JwtHelperService, private usersService: UsersService) { }
+  constructor(private http: HttpClient, private jwtHelper: JwtHelperService) { }
 
   public isUserAuthenticated = (): boolean => {
     const token = localStorage.getItem("token");

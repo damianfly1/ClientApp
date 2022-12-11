@@ -14,7 +14,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.authService.isUserAuthenticated())
-      console.log("siema jestem tutaj!");
       this.authService.sendAuthStateChangeNotification(true);
   }
 }

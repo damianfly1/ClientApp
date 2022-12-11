@@ -8,12 +8,14 @@ import { RegisterUserComponent } from './components/register-user/register-user.
 import { SubforumComponent } from './components/subforum/subforum.component';
 import { TopicDetailComponent } from './components/topic-detail/topic-detail.component';
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
+import { UsersComponent } from './components/users/users.component';
 import { AuthGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
   {path: 'home', component: MainComponent },//, canActivate: [AuthGuard]},
   {path: 'subforums/:id', component: SubforumComponent},
   {path: 'topics/:id', component: TopicDetailComponent},
+  {path: 'users', component: UsersComponent},
   {path: 'users/:id', component: UserDetailComponent, canActivate: [AuthGuard]}, 
   { path: 'register', component: RegisterUserComponent },
   { path: 'login', component: LoginComponent },

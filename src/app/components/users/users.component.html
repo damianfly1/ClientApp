@@ -1,0 +1,8 @@
+<h1>Lista użytkowników</h1>
+<div style="display: flex; flex-direction: row; max-width: 50rem; margin-top: 3em; margin-left: auto; margin-right: auto;">
+<div *ngFor="let user of users" >
+    <div style="display: flex; flex-direction: row;width:10rem;">
+    <app-user-info [userId]="user.id"></app-user-info>
+    </div>
+</div>
+</div>

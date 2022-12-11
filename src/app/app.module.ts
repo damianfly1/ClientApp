@@ -41,6 +41,7 @@ import { UserDetailComponent } from './components/user-detail/user-detail.compon
 import { UploadComponent } from './components/upload/upload.component';
 import { CommonModule } from '@angular/common';
 import { RegisterUserComponent } from './components/register-user/register-user.component';
+import { UsersComponent } from './components/users/users.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -66,6 +67,7 @@ export function tokenGetter() {
     UserInfoComponent,
     UserDetailComponent,
     UploadComponent,
+    UsersComponent,
   ],
   imports: [
     BrowserModule,
