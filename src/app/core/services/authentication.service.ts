@@ -26,7 +26,7 @@ export class AuthenticationService {
 
   public getUserRole = (): string | null => {
     const token = localStorage.getItem("token");
-    if(token == null) return null;
+    if (token == null) return null;
     const decodedToken = this.jwtHelper.decodeToken(token!);
     const role = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']
     return role;
@@ -34,14 +34,14 @@ export class AuthenticationService {
 
   public getCurrentUserName = (): string | null => {
     const token = localStorage.getItem("token");
-    if(token == null) return null;
+    if (token == null) return null;
     const decodedToken = this.jwtHelper.decodeToken(token!);
     const name = decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name']
     return name;
   }
 
   public registerUser = (route: string, body: UserForRegistrationDto) => {
-    return this.http.post<RegistrationResponseDto> (this.createCompleteRoute(route, 'https://localhost:7153'), body);
+    return this.http.post<RegistrationResponseDto>(this.createCompleteRoute(route, 'https://localhost:7153'), body);
   }
 
   private createCompleteRoute = (route: string, envAddress: string) => {

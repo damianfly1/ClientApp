@@ -41,7 +41,7 @@ export class CategoriesService extends BaseService {
     context?: HttpContext
     body?: UpdateCategoryDto
   }
-): Observable<StrictHttpResponse<CategoryResponseDto>> {
+  ): Observable<StrictHttpResponse<CategoryResponseDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, CategoriesService.ApiCategoriesIdPutPath, 'put');
     if (params) {
@@ -72,7 +72,7 @@ export class CategoriesService extends BaseService {
     context?: HttpContext
     body?: UpdateCategoryDto
   }
-): Observable<CategoryResponseDto> {
+  ): Observable<CategoryResponseDto> {
 
     return this.apiCategoriesIdPut$Plain$Response(params).pipe(
       map((r: StrictHttpResponse<CategoryResponseDto>) => r.body as CategoryResponseDto)
@@ -90,12 +90,13 @@ export class CategoriesService extends BaseService {
     context?: HttpContext
     body?: UpdateCategoryDto
   }
-): Observable<StrictHttpResponse<CategoryResponseDto>> {
+  ): Observable<StrictHttpResponse<CategoryResponseDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, CategoriesService.ApiCategoriesIdPutPath, 'put');
     if (params) {
       rb.path('id', params.id, {});
       rb.body(params.body, 'application/*+json');
+      rb.header('Authorization', 'Bearer ' + localStorage.getItem("token"));
     }
 
     return this.http.request(rb.build({
@@ -121,7 +122,7 @@ export class CategoriesService extends BaseService {
     context?: HttpContext
     body?: UpdateCategoryDto
   }
-): Observable<CategoryResponseDto> {
+  ): Observable<CategoryResponseDto> {
 
     return this.apiCategoriesIdPut$Json$Response(params).pipe(
       map((r: StrictHttpResponse<CategoryResponseDto>) => r.body as CategoryResponseDto)
@@ -143,7 +144,7 @@ export class CategoriesService extends BaseService {
     id: string;
     context?: HttpContext
   }
-): Observable<StrictHttpResponse<CategoryResponseDto>> {
+  ): Observable<StrictHttpResponse<CategoryResponseDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, CategoriesService.ApiCategoriesIdDeletePath, 'delete');
     if (params) {
@@ -172,7 +173,7 @@ export class CategoriesService extends BaseService {
     id: string;
     context?: HttpContext
   }
-): Observable<CategoryResponseDto> {
+  ): Observable<CategoryResponseDto> {
 
     return this.apiCategoriesIdDelete$Plain$Response(params).pipe(
       map((r: StrictHttpResponse<CategoryResponseDto>) => r.body as CategoryResponseDto)
@@ -189,11 +190,12 @@ export class CategoriesService extends BaseService {
     id: string;
     context?: HttpContext
   }
-): Observable<StrictHttpResponse<CategoryResponseDto>> {
+  ): Observable<StrictHttpResponse<CategoryResponseDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, CategoriesService.ApiCategoriesIdDeletePath, 'delete');
     if (params) {
       rb.path('id', params.id, {});
+      rb.header('Authorization', 'Bearer ' + localStorage.getItem("token"));
     }
 
     return this.http.request(rb.build({
@@ -218,7 +220,7 @@ export class CategoriesService extends BaseService {
     id: string;
     context?: HttpContext
   }
-): Observable<CategoryResponseDto> {
+  ): Observable<CategoryResponseDto> {
 
     return this.apiCategoriesIdDelete$Json$Response(params).pipe(
       map((r: StrictHttpResponse<CategoryResponseDto>) => r.body as CategoryResponseDto)
@@ -241,7 +243,7 @@ export class CategoriesService extends BaseService {
     context?: HttpContext
     body?: CreateSubForumDto
   }
-): Observable<StrictHttpResponse<SubForumResponseDto>> {
+  ): Observable<StrictHttpResponse<SubForumResponseDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, CategoriesService.ApiCategoriesIdSubForumsPostPath, 'post');
     if (params) {
@@ -272,7 +274,7 @@ export class CategoriesService extends BaseService {
     context?: HttpContext
     body?: CreateSubForumDto
   }
-): Observable<SubForumResponseDto> {
+  ): Observable<SubForumResponseDto> {
 
     return this.apiCategoriesIdSubForumsPost$Plain$Response(params).pipe(
       map((r: StrictHttpResponse<SubForumResponseDto>) => r.body as SubForumResponseDto)
@@ -290,12 +292,13 @@ export class CategoriesService extends BaseService {
     context?: HttpContext
     body?: CreateSubForumDto
   }
-): Observable<StrictHttpResponse<SubForumResponseDto>> {
+  ): Observable<StrictHttpResponse<SubForumResponseDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, CategoriesService.ApiCategoriesIdSubForumsPostPath, 'post');
     if (params) {
       rb.path('id', params.id, {});
       rb.body(params.body, 'application/*+json');
+      rb.header('Authorization', 'Bearer ' + localStorage.getItem("token"));
     }
 
     return this.http.request(rb.build({
@@ -321,7 +324,7 @@ export class CategoriesService extends BaseService {
     context?: HttpContext
     body?: CreateSubForumDto
   }
-): Observable<SubForumResponseDto> {
+  ): Observable<SubForumResponseDto> {
 
     return this.apiCategoriesIdSubForumsPost$Json$Response(params).pipe(
       map((r: StrictHttpResponse<SubForumResponseDto>) => r.body as SubForumResponseDto)

@@ -1,0 +1,9 @@
+.style {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid;
+    border-color: #2c374c;
+    border-radius: 3%;
+    padding: 4rem;
+    margin: 1rem;
+}

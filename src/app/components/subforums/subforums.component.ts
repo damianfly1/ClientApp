@@ -19,32 +19,32 @@ export class SubforumsComponent implements OnInit {
   updateDto: UpdateSubForumDto = {} as UpdateSubForumDto;
   userRole: string | null = null;
 
-  constructor(private categoriesService : CategoriesService, private authenticationService: AuthenticationService) { }
+  constructor(private categoriesService: CategoriesService, private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
-    if(this.authenticationService.isUserAuthenticated()){
+    if (this.authenticationService.isUserAuthenticated()) {
       this.userRole = this.authenticationService.getUserRole()!;
-      }
-      this.authenticationService.authChanged
+    }
+    this.authenticationService.authChanged
       .subscribe(res => {
         this.userRole = null;
       })
   }
 
-  addNewSubForum(){
-    this.categoriesService.apiCategoriesIdSubForumsPost$Json({id:this.categoryId, body: this.newSubForum})
-    .subscribe(subForum => {
-      Object.assign(this.createdNewSubForum, subForum);
-      this.subForums?.push(this.createdNewSubForum);
-    });
+  addNewSubForum() {
+    this.categoriesService.apiCategoriesIdSubForumsPost$Json({ id: this.categoryId, body: this.newSubForum })
+      .subscribe(subForum => {
+        Object.assign(this.createdNewSubForum, subForum);
+        this.subForums?.push(this.createdNewSubForum);
+      });
     this.addingNewSubForum = false;
   }
 
-  removeSubForum(subForumId : string){
+  removeSubForum(subForumId: string) {
     this.subForums = this.subForums?.filter(item => item.id !== subForumId);
   }
 
-  startAddingNewSubForum(){
+  startAddingNewSubForum() {
     this.addingNewSubForum = true;
   }
 

@@ -15,17 +15,16 @@ export class NavComponent implements OnInit {
   constructor(private authService: AuthenticationService, private router: Router, private usersService: UsersService) { }
 
   ngOnInit(): void {
-    if(this.authService.isUserAuthenticated()){
+    if (this.authService.isUserAuthenticated()) {
       this.isUserAuthenticated = true;
       const username = this.authService.getCurrentUserName();
-      console.log(username);
       this.usersService.getUser(username!).subscribe(res => this.userId = res.id);
-    } 
+    }
 
     this.authService.authChanged
-    .subscribe(res => {
-      this.isUserAuthenticated = res;
-    })
+      .subscribe(res => {
+        this.isUserAuthenticated = res;
+      })
   }
 
   public logout = () => {

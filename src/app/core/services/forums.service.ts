@@ -29,108 +29,6 @@ export class ForumsService extends BaseService {
   getForum() {
     return this.http.get('https://localhost:7153/api/forums');
   }
-  /**
-   * Path part for operation apiForumsIdPut
-   */
-  static readonly ApiForumsIdPutPath = 'https://localhost:7153/api/Forums/{id}';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiForumsIdPut$Plain()` instead.
-   *
-   * This method sends `application/*+json` and handles request body of type `application/*+json`.
-   */
-  apiForumsIdPut$Plain$Response(params: {
-    id: string;
-    context?: HttpContext
-    body?: UpdateForumDto
-  }
-): Observable<StrictHttpResponse<ForumResponseDto>> {
-
-    const rb = new RequestBuilder(this.rootUrl, ForumsService.ApiForumsIdPutPath, 'put');
-    if (params) {
-      rb.path('id', params.id, {});
-      rb.body(params.body, 'application/*+json');
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: 'text/plain',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<ForumResponseDto>;
-      })
-    );
-  }
-
-  /**
-   * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `apiForumsIdPut$Plain$Response()` instead.
-   *
-   * This method sends `application/*+json` and handles request body of type `application/*+json`.
-   */
-  apiForumsIdPut$Plain(params: {
-    id: string;
-    context?: HttpContext
-    body?: UpdateForumDto
-  }
-): Observable<ForumResponseDto> {
-
-    return this.apiForumsIdPut$Plain$Response(params).pipe(
-      map((r: StrictHttpResponse<ForumResponseDto>) => r.body as ForumResponseDto)
-    );
-  }
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiForumsIdPut$Json()` instead.
-   *
-   * This method sends `application/*+json` and handles request body of type `application/*+json`.
-   */
-  apiForumsIdPut$Json$Response(params: {
-    id: string;
-    context?: HttpContext
-    body?: UpdateForumDto
-  }
-): Observable<StrictHttpResponse<ForumResponseDto>> {
-
-    const rb = new RequestBuilder(this.rootUrl, ForumsService.ApiForumsIdPutPath, 'put');
-    if (params) {
-      rb.path('id', params.id, {});
-      rb.body(params.body, 'application/*+json');
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'text/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<ForumResponseDto>;
-      })
-    );
-  }
-
-  /**
-   * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `apiForumsIdPut$Json$Response()` instead.
-   *
-   * This method sends `application/*+json` and handles request body of type `application/*+json`.
-   */
-  apiForumsIdPut$Json(params: {
-    id: string;
-    context?: HttpContext
-    body?: UpdateForumDto
-  }
-): Observable<ForumResponseDto> {
-
-    return this.apiForumsIdPut$Json$Response(params).pipe(
-      map((r: StrictHttpResponse<ForumResponseDto>) => r.body as ForumResponseDto)
-    );
-  }
 
   /**
    * Path part for operation apiForumsIdCategoriesPost
@@ -148,7 +46,7 @@ export class ForumsService extends BaseService {
     context?: HttpContext
     body?: CreateCategoryDto
   }
-): Observable<StrictHttpResponse<CategoryResponseDto>> {
+  ): Observable<StrictHttpResponse<CategoryResponseDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, ForumsService.ApiForumsIdCategoriesPostPath, 'post');
     if (params) {
@@ -179,7 +77,7 @@ export class ForumsService extends BaseService {
     context?: HttpContext
     body?: CreateCategoryDto
   }
-): Observable<CategoryResponseDto> {
+  ): Observable<CategoryResponseDto> {
 
     return this.apiForumsIdCategoriesPost$Plain$Response(params).pipe(
       map((r: StrictHttpResponse<CategoryResponseDto>) => r.body as CategoryResponseDto)
@@ -197,12 +95,13 @@ export class ForumsService extends BaseService {
     context?: HttpContext
     body?: CreateCategoryDto
   }
-): Observable<StrictHttpResponse<CategoryResponseDto>> {
+  ): Observable<StrictHttpResponse<CategoryResponseDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, ForumsService.ApiForumsIdCategoriesPostPath, 'post');
     if (params) {
       rb.path('id', params.id, {});
       rb.body(params.body, 'application/*+json');
+      rb.header('Authorization', 'Bearer ' + localStorage.getItem("token"));
     }
 
     return this.http.request(rb.build({
@@ -228,7 +127,7 @@ export class ForumsService extends BaseService {
     context?: HttpContext
     body?: CreateCategoryDto
   }
-): Observable<CategoryResponseDto> {
+  ): Observable<CategoryResponseDto> {
 
     return this.apiForumsIdCategoriesPost$Json$Response(params).pipe(
       map((r: StrictHttpResponse<CategoryResponseDto>) => r.body as CategoryResponseDto)

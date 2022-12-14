@@ -21,6 +21,7 @@
                 <span>Liczba postów: {{user.postCount}}</span>
                 <span>Rola: {{user.role}}</span>
                 <span>Konto założone: {{user.createdAt | date:'short'}}</span>
+                <span>Reputacja: {{user.reputation}}</span>
                 <div *ngIf="isOwner()">
                     <app-upload [userId]="user.id"></app-upload>
                 </div>

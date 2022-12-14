@@ -1,25 +1,23 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {PanelModule} from 'primeng/panel';
-import {MenuModule} from 'primeng/menu';
-import { MenuItem } from 'primeng/api';
-import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
-import {ToolbarModule} from 'primeng/toolbar';
-import {ButtonModule} from 'primeng/button';
-import {Chips, ChipsModule} from 'primeng/chips';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms'
-import {InputTextModule} from 'primeng/inputtext';
-import {DialogModule} from 'primeng/dialog';
-import {InputTextareaModule} from 'primeng/inputtextarea';
-import {Table, TableModule} from 'primeng/table';
-import {ToastModule} from 'primeng/toast';
-import {AvatarModule} from 'primeng/avatar';
-import {FileUploadModule} from 'primeng/fileupload';
+import { PanelModule } from 'primeng/panel';
+import { MenuModule } from 'primeng/menu';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ToolbarModule } from 'primeng/toolbar';
+import { ButtonModule } from 'primeng/button';
+import { Chips, ChipsModule } from 'primeng/chips';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { InputTextModule } from 'primeng/inputtext';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { Table, TableModule } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
+import { AvatarModule } from 'primeng/avatar';
+import { FileUploadModule } from 'primeng/fileupload';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavComponent } from './layouts/nav/nav.component';
-import { FooterComponent } from './layouts/footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { CategoryDetailComponent } from './components/category-detail/category-detail.component';
@@ -28,9 +26,8 @@ import { SubforumDetailComponent } from './components/subforum-detail/subforum-d
 import { TopicDetailComponent } from './components/topic-detail/topic-detail.component';
 import { PostsComponent } from './components/posts/posts.component';
 import { PostDetailComponent } from './components/post-detail/post-detail.component';
-import { ProfileAvatarComponent } from './components/profile-avatar/profile-avatar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {InputSwitchModule} from 'primeng/inputswitch';
+import { InputSwitchModule } from 'primeng/inputswitch';
 import { LoginComponent } from './components/login/login.component';
 import { MainComponent } from './components/main/main.component';
 import { ErrorHandlerService } from './core/services/error-handler.service';
@@ -51,7 +48,6 @@ export function tokenGetter() {
   declarations: [
     AppComponent,
     NavComponent,
-    FooterComponent,
     CategoriesComponent,
     CategoryDetailComponent,
     SubforumsComponent,
@@ -59,7 +55,6 @@ export function tokenGetter() {
     TopicDetailComponent,
     PostsComponent,
     PostDetailComponent,
-    ProfileAvatarComponent,
     RegisterUserComponent,
     LoginComponent,
     MainComponent,

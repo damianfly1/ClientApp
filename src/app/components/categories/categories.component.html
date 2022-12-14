@@ -3,23 +3,25 @@
 </div>
 
 <div *ngIf="userRole=='Administrator'">
-<p-toolbar class="m-2">
-    <div class="p-toolbar-group-left">
-        <p-button label="Nowa kategoria" icon="pi pi-plus" class="mr-2" (click) = "startAddingNewCategory()"></p-button>
-    </div>
-</p-toolbar>
+    <p-toolbar class="m-2">
+        <div class="p-toolbar-group-left">
+            <p-button label="Nowa kategoria" icon="pi pi-plus" class="mr-2"
+                (click)="startAddingNewCategory()"></p-button>
+        </div>
+    </p-toolbar>
 </div>
 
 <div *ngIf="addingNewCategory">
-<p-dialog header="Dodaj nową kategorię" [(visible)]="addingNewCategory" [modal]="true" [style]="{width: '50vw'}" [draggable]="false" [resizable]="false">
-    <h5>Nazwa</h5>
-    <input type="text" pInputText [(ngModel)] = "newCategory.name" required="true"> 
-    <h5>Opis</h5>
-    <textarea pInputTextarea [(ngModel)] = "newCategory.description" required="true"></textarea>
-    <h5>Tylko dla moderatorów</h5>
-    <p-inputSwitch [(ngModel)]="newCategory.isModerationOnly"></p-inputSwitch>
+    <p-dialog header="Dodaj nową kategorię" [(visible)]="addingNewCategory" [modal]="true" [style]="{width: '50vw'}"
+        [draggable]="false" [resizable]="false">
+        <h5>Nazwa</h5>
+        <input type="text" pInputText [(ngModel)]="newCategory.name" required="true">
+        <h5>Opis</h5>
+        <textarea pInputTextarea [(ngModel)]="newCategory.description" required="true"></textarea>
+        <h5>Tylko dla moderatorów</h5>
+        <p-inputSwitch [(ngModel)]="newCategory.isModerationOnly"></p-inputSwitch>
         <ng-template pTemplate="footer">
-        <p-button icon="pi pi-check" (click)="addNewCategory()" label="Ok" styleClass="p-button-text"></p-button>
+            <p-button icon="pi pi-check" (click)="addNewCategory()" label="Ok" styleClass="p-button-text"></p-button>
         </ng-template>
-</p-dialog>
+    </p-dialog>
 </div>

@@ -9,12 +9,12 @@
       
       <form [formGroup]="loginForm" autocomplete="off" novalidate (ngSubmit)="loginUser(loginForm.value)">
           <div class="mb-3 row">
-              <label for="username" class="col-form-label col-sm-2">Nazwa użytkownika:</label>
+              <label for="username" class="col-form-label col-sm-2">Email:</label>
               <div class="col-md-5">
                   <input type="text" id="username" formControlName="username" class="form-control" />
               </div>
               <div class="col-md-5">
-                  <em *ngIf="validateControl('username') && hasError('username', 'required')">Nazwa jest wymagana</em>
+                  <em *ngIf="validateControl('username') && hasError('username', 'required')">Email jest wymagany</em>
               </div>
           </div>
           <div class="mb-3 row">

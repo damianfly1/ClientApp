@@ -94,6 +94,7 @@ export class PostsService extends BaseService {
     if (params) {
       rb.path('id', params.id, {});
       rb.body(params.body, 'application/*+json');
+      rb.header('Authorization', 'Bearer ' + localStorage.getItem("token"));
     }
 
     return this.http.request(rb.build({
@@ -192,6 +193,7 @@ export class PostsService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, PostsService.ApiPostsIdDeletePath, 'delete');
     if (params) {
       rb.path('id', params.id, {});
+      rb.header('Authorization', 'Bearer ' + localStorage.getItem("token"));
     }
 
     return this.http.request(rb.build({

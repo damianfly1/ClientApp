@@ -12,14 +12,14 @@ import { UsersComponent } from './components/users/users.component';
 import { AuthGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
-  {path: 'home', component: MainComponent },//, canActivate: [AuthGuard]},
-  {path: 'subforums/:id', component: SubforumComponent},
-  {path: 'topics/:id', component: TopicDetailComponent},
-  {path: 'users', component: UsersComponent},
-  {path: 'users/:id', component: UserDetailComponent, canActivate: [AuthGuard]}, 
+  { path: 'home', component: MainComponent },
+  { path: 'subforums/:id', component: SubforumComponent },
+  { path: 'topics/:id', component: TopicDetailComponent },
+  { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
+  { path: 'users/:id', component: UserDetailComponent, canActivate: [AuthGuard] },
   { path: 'register', component: RegisterUserComponent },
   { path: 'login', component: LoginComponent },
-  {path: '**', redirectTo: 'home', pathMatch: 'full'}
+  { path: '**', redirectTo: 'home', pathMatch: 'full' }
 ];
 
 @NgModule({

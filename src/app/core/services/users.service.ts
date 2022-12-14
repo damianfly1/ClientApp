@@ -16,7 +16,7 @@ export class UsersService {
     return this.httpClient.get<UserResponseDto>('https://localhost:7153/api/users/' + idOrName);
   }
 
-  getLoggedUser(){
+  getLoggedUser() {
     return this.httpClient.get<UserResponseDto>('https://localhost:7153/api/users/' + this.authenticationService.getCurrentUserName());
   }
 
@@ -24,8 +24,8 @@ export class UsersService {
     return this.httpClient.post<UserResponseDto>('https://localhost:7153/api/users/' + id + '/role?role=' + role, null);
   }
 
-  getAll(){
-    return this.httpClient.get<Array<UserResponseDto>>('https://localhost:7153/api/users/', {headers: { Authorization: 'Bearer ' + localStorage.getItem('token') }});
+  getAll() {
+    return this.httpClient.get<Array<UserResponseDto>>('https://localhost:7153/api/users/', { headers: { Authorization: 'Bearer ' + localStorage.getItem('token') } });
   }
 
 }

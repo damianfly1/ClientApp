@@ -40,11 +40,12 @@ export class RegisterUserComponent implements OnInit {
       password: formValues.password,
       confirmPassword: formValues.confirm
     };
-    console.log(user);
     this.authService.registerUser("api/users/registration", user)
     .subscribe({
       next: (_) => this.router.navigate(["login"]),
-      error: (err: HttpErrorResponse) => console.log(err.error.errors)
+      error: (err: any) => {
+      this.errorMessage = "Błędne dane, sprawdź czy hasło spełnia wymagania";
+      this.showError = true;}
     })
   }
 }

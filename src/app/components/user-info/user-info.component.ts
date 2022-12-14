@@ -17,16 +17,13 @@ export class UserInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.usersService.getUser(this.userId!).subscribe(
-      response =>{
-        //console.log(this.userId);
-        //console.log(response);
-       this.user = response;
-       //console.log(this.user);
+      response => {
+        this.user = response;
       })
   }
 
-  public createImgPath = (serverPath: any) => { 
-    return `https://localhost:7153/${serverPath}`; 
+  public createImgPath = (serverPath: any) => {
+    return `https://localhost:7153/${serverPath}`;
   }
 
 }

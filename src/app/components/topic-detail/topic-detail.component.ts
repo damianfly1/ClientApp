@@ -17,13 +17,13 @@ export class TopicDetailComponent implements OnInit {
   constructor(private topicsService: TopicsService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.sub=this.activatedRoute.paramMap.subscribe(params => { 
-      this.topicId = params.get('id'); 
-      this.topicsService.apiTopicsIdGet$Json({id: this.topicId!}).subscribe(
-      response =>{
-       this.topic = response;
-      })
-  });
+    this.sub = this.activatedRoute.paramMap.subscribe(params => {
+      this.topicId = params.get('id');
+      this.topicsService.apiTopicsIdGet$Json({ id: this.topicId! }).subscribe(
+        response => {
+          this.topic = response;
+        })
+    });
   }
 
 }

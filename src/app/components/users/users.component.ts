@@ -12,10 +12,10 @@ export class UsersComponent implements OnInit {
 
   users: UserResponseDto[] = {} as Array<UserResponseDto>
 
-  constructor(private usersService : UsersService) { }
+  constructor(private usersService: UsersService) { }
 
   ngOnInit(): void {
-    this.usersService.getAll().subscribe(res => this.users=res);
+    this.usersService.getAll().subscribe(res => this.users = res);
   }
 
 }

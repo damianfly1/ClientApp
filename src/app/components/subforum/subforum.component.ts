@@ -31,42 +31,38 @@ export class SubforumComponent implements OnInit {
   pinned: TopicNestedResponseDto[] = {} as Array<TopicNestedResponseDto>;
   normal: TopicNestedResponseDto[] = {} as Array<TopicNestedResponseDto>
 
-  constructor(private subforumsService : SubForumsService,
+  constructor(private subforumsService: SubForumsService,
     private activatedRoute: ActivatedRoute,
     private topicsService: TopicsService,
     private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
-    this.sub=this.activatedRoute.paramMap.subscribe(params => { 
-       this.subforumId = params.get('id'); 
-       this.subforumsService.apiSubForumsIdGet$Json({id: this.subforumId!}).subscribe(
-       response =>{
-        this.subforum = response;
-        this.topics = response.topics!;
-        this.pinned = this.topics.filter(x => x.isPinned == true);
-        this.normal = this.topics.filter(x => x.isPinned == false);
-        this.checkIfPinnedExist();
-       })
-   });
-   if(this.authenticationService.isUserAuthenticated()){
-    this.userRole = this.authenticationService.getUserRole()!;
+    this.sub = this.activatedRoute.paramMap.subscribe(params => {
+      this.subforumId = params.get('id');
+      this.subforumsService.apiSubForumsIdGet$Json({ id: this.subforumId! }).subscribe(
+        response => {
+          this.subforum = response;
+          this.topics = response.topics!;
+          this.pinned = this.topics.filter(x => x.isPinned == true);
+          this.normal = this.topics.filter(x => x.isPinned == false);
+          this.checkIfPinnedExist();
+        })
+    });
+    if (this.authenticationService.isUserAuthenticated()) {
+      this.userRole = this.authenticationService.getUserRole()!;
     }
     this.authenticationService.authChanged
-    .subscribe(res => {
-      this.userRole = null;
-    })
+      .subscribe(res => {
+        this.userRole = null;
+      })
   }
 
-  updateTopic(){
-    //czesc do api
+  updateTopic() {
     this.updateDto.name = this.selectedTopic.name;
     this.updateDto.isClosed = this.selectedTopic.isClosed;
     this.updateDto.isPinned = this.selectedTopic.isPinned;
-    this.topicsService.apiTopicsIdPut$Json({id: this.updateId, body: this.updateDto}).subscribe();
+    this.topicsService.apiTopicsIdPut$Json({ id: this.updateId, body: this.updateDto }).subscribe();
 
-    //czesc moja
-    console.log("STAN PRZYPIECIA AKTUALNEGO TOPICA: ", this.topics[this.findIndexById(this.updateId)].isPinned);
-    console.log("STAN PRZYPIECIA UPDATE: ", this.selectedTopic.isPinned );
     if (this.topics[this.findIndexById(this.updateId)].isPinned != this.selectedTopic.isPinned) this.moveTopic(this.selectedTopic);
     Object.assign(this.topics[this.findIndexById(this.updateId)], this.selectedTopic);
     this.editingTopic = false;
@@ -74,69 +70,63 @@ export class SubforumComponent implements OnInit {
     this.checkIfPinnedExist();
   }
 
-  startEditingTopic(topic: TopicNestedResponseDto){
-    console.log("TEMAT DO EDYCJI KTORY DOSTAJE: ", topic);
+  startEditingTopic(topic: TopicNestedResponseDto) {
     this.updateId = topic.id!;
     Object.assign(this.selectedTopic, topic);
     this.editingTopic = true;
   }
 
-  addNewTopic(){
-    this.subforumsService.apiSubForumsIdTopicsPost$Json({id: this.subforumId!, body: this.newTopic})
-    .subscribe(response => {
-      Object.assign(this.createdNewTopic, response);
-      this.createdNewTopic.responseCount = 1;
-      this.topics.push(this.createdNewTopic);
-      if(this.createdNewTopic.isPinned) this.pinned.push(this.createdNewTopic);
-      else this.normal.push(this.createdNewTopic);
-      this.checkIfPinnedExist();
-      this.topicsService.apiTopicsIdPostsPost$Json({id: response.id!, body: this.firstPost}).subscribe();
-    })
+  addNewTopic() {
+    this.subforumsService.apiSubForumsIdTopicsPost$Json({ id: this.subforumId!, body: this.newTopic })
+      .subscribe(response => {
+        Object.assign(this.createdNewTopic, response);
+        this.createdNewTopic.responseCount = 1;
+        this.topics.push(this.createdNewTopic);
+        if (this.createdNewTopic.isPinned) this.pinned.push(this.createdNewTopic);
+        else this.normal.push(this.createdNewTopic);
+        this.checkIfPinnedExist();
+        this.topicsService.apiTopicsIdPostsPost$Json({ id: response.id!, body: this.firstPost }).subscribe();
+      })
     this.addingNewTopic = false;
   }
 
-  startAddingNewTopic(){
+  startAddingNewTopic() {
     this.addingNewTopic = true;
   }
 
   findIndexById(id: string): number {
     let index = -1;
     for (let i = 0; i < this.topics.length; i++) {
-        if (this.topics[i].id === id) {
-            index = i;
-            break;
-        }
+      if (this.topics[i].id === id) {
+        index = i;
+        break;
+      }
     }
 
     return index;
-}
-
-deleteTopic(){
-  this.topicsService.apiTopicsIdDelete$Json({id: this.updateId}).subscribe();
-  this.topics = this.topics.filter(val => val.id !== this.updateId);
-  this.normal = this.normal.filter(x => x.id != this.updateId);
-  this.pinned = this.pinned.filter(x => x.id != this.updateId);
-  this.checkIfPinnedExist();
-}
-
-checkIfPinnedExist(){
-  if (this.topics.filter(x => x.isPinned == true).length != 0) this.pinnedExist = true;
-  else this.pinnedExist = false;
-}
-
-moveTopic(topic: TopicNestedResponseDto){
-  console.log("WYKRYLEM ZMIANE!");
-  console.log("DOSTAJE TOPIC DO PRZESUNIECIA", topic);
-  if(topic.isPinned == false){
-    this.normal.push(topic);
-    this.pinned = this.pinned.filter(x => x.id != topic.id);
   }
-  if(topic.isPinned == true){
-    this.normal = this.normal.filter(x => x.id != topic.id);
-    this.pinned.push(topic);
+
+  deleteTopic() {
+    this.topicsService.apiTopicsIdDelete$Json({ id: this.updateId }).subscribe();
+    this.topics = this.topics.filter(val => val.id !== this.updateId);
+    this.normal = this.normal.filter(x => x.id != this.updateId);
+    this.pinned = this.pinned.filter(x => x.id != this.updateId);
+    this.checkIfPinnedExist();
   }
-  console.log(this.pinned);
-  console.log(this.normal);
-  console.log(this.topics);
-}
+
+  checkIfPinnedExist() {
+    if (this.topics.filter(x => x.isPinned == true).length != 0) this.pinnedExist = true;
+    else this.pinnedExist = false;
+  }
+
+  moveTopic(topic: TopicNestedResponseDto) {
+    if (topic.isPinned == false) {
+      this.normal.push(topic);
+      this.pinned = this.pinned.filter(x => x.id != topic.id);
+    }
+    if (topic.isPinned == true) {
+      this.normal = this.normal.filter(x => x.id != topic.id);
+      this.pinned.push(topic);
+    }
+  }
 }

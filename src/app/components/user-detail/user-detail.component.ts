@@ -25,56 +25,56 @@ export class UserDetailComponent implements OnInit {
         label: 'Uczyń moderatorem',
         icon: 'pi pi-angle-up',
         command: () => {
-            this.setRole("Moderator");
+          this.setRole("Moderator");
         }
-    },
-    {
-      label: 'Uczyń administratorem',
-      icon: 'pi pi-angle-double-up',
-      command: () => {
+      },
+      {
+        label: 'Uczyń administratorem',
+        icon: 'pi pi-angle-double-up',
+        command: () => {
           this.setRole("Administrator");
-      }
-    },
-    {
-      label: 'Uczyń normalnym użytkownikiem',
-      icon: 'pi pi-times',
-      command: () => {
+        }
+      },
+      {
+        label: 'Uczyń normalnym użytkownikiem',
+        icon: 'pi pi-times',
+        command: () => {
           this.setRole("User");
-      }
-    },
-    {
+        }
+      },
+      {
         label: 'Zbanuj/odbanuj',
         icon: 'pi pi-ban',
         command: () => {
-            if(this.user.isBanned) this.setRole("Unban");
-            else this.setRole("Ban");
+          if (this.user.isBanned) this.setRole("Unban");
+          else this.setRole("Ban");
         }
-    }
-    ]}
+      }
+    ]
+  }
   ];
 
   constructor(private usersService: UsersService, private activatedRoute: ActivatedRoute, private authenticationService: AuthenticationService) { }
-  
+
   ngOnInit(): void {
-    this.sub=this.activatedRoute.paramMap.subscribe(params => { 
-      this.userId = params.get('id'); 
+    this.sub = this.activatedRoute.paramMap.subscribe(params => {
+      this.userId = params.get('id');
       this.usersService.getUser(this.userId!).subscribe(
-      response =>{
-       this.user = response;
-      // console.log(this.user);
-      })
-  });
-  if(this.authenticationService.isUserAuthenticated()){
-    this.userRole = this.authenticationService.getUserRole()!;
+        response => {
+          this.user = response;;
+        })
+    });
+    if (this.authenticationService.isUserAuthenticated()) {
+      this.userRole = this.authenticationService.getUserRole()!;
     }
     this.authenticationService.authChanged
-    .subscribe(res => {
-      this.userRole = null;
-    })
+      .subscribe(res => {
+        this.userRole = null;
+      })
   }
 
-  public createImgPath = (serverPath: any) => { 
-    return `https://localhost:7153/${serverPath}`; 
+  public createImgPath = (serverPath: any) => {
+    return `https://localhost:7153/${serverPath}`;
   }
 
   setRole(command: string) {
@@ -83,9 +83,9 @@ export class UserDetailComponent implements OnInit {
     );
   }
 
-  isOwner(){
-    if(this.authenticationService.getCurrentUserName() == this.user.userName) return true;
+  isOwner() {
+    if (this.authenticationService.getCurrentUserName() == this.user.userName) return true;
     else return false;
   }
-  
+
 }

@@ -41,7 +41,7 @@ export class TopicsService extends BaseService {
     id: string;
     context?: HttpContext
   }
-): Observable<StrictHttpResponse<TopicParentNestedResponseDto>> {
+  ): Observable<StrictHttpResponse<TopicParentNestedResponseDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, TopicsService.ApiTopicsIdGetPath, 'get');
     if (params) {
@@ -70,7 +70,7 @@ export class TopicsService extends BaseService {
     id: string;
     context?: HttpContext
   }
-): Observable<TopicParentNestedResponseDto> {
+  ): Observable<TopicParentNestedResponseDto> {
 
     return this.apiTopicsIdGet$Plain$Response(params).pipe(
       map((r: StrictHttpResponse<TopicParentNestedResponseDto>) => r.body as TopicParentNestedResponseDto)
@@ -87,7 +87,7 @@ export class TopicsService extends BaseService {
     id: string;
     context?: HttpContext
   }
-): Observable<StrictHttpResponse<TopicParentNestedResponseDto>> {
+  ): Observable<StrictHttpResponse<TopicParentNestedResponseDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, TopicsService.ApiTopicsIdGetPath, 'get');
     if (params) {
@@ -116,7 +116,7 @@ export class TopicsService extends BaseService {
     id: string;
     context?: HttpContext
   }
-): Observable<TopicParentNestedResponseDto> {
+  ): Observable<TopicParentNestedResponseDto> {
 
     return this.apiTopicsIdGet$Json$Response(params).pipe(
       map((r: StrictHttpResponse<TopicParentNestedResponseDto>) => r.body as TopicParentNestedResponseDto)
@@ -139,7 +139,7 @@ export class TopicsService extends BaseService {
     context?: HttpContext
     body?: UpdateTopicDto
   }
-): Observable<StrictHttpResponse<TopicResponseDto>> {
+  ): Observable<StrictHttpResponse<TopicResponseDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, TopicsService.ApiTopicsIdPutPath, 'put');
     if (params) {
@@ -170,7 +170,7 @@ export class TopicsService extends BaseService {
     context?: HttpContext
     body?: UpdateTopicDto
   }
-): Observable<TopicResponseDto> {
+  ): Observable<TopicResponseDto> {
 
     return this.apiTopicsIdPut$Plain$Response(params).pipe(
       map((r: StrictHttpResponse<TopicResponseDto>) => r.body as TopicResponseDto)
@@ -188,12 +188,13 @@ export class TopicsService extends BaseService {
     context?: HttpContext
     body?: UpdateTopicDto
   }
-): Observable<StrictHttpResponse<TopicResponseDto>> {
+  ): Observable<StrictHttpResponse<TopicResponseDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, TopicsService.ApiTopicsIdPutPath, 'put');
     if (params) {
       rb.path('id', params.id, {});
       rb.body(params.body, 'application/*+json');
+      rb.header('Authorization', 'Bearer ' + localStorage.getItem("token"));
     }
 
     return this.http.request(rb.build({
@@ -219,7 +220,7 @@ export class TopicsService extends BaseService {
     context?: HttpContext
     body?: UpdateTopicDto
   }
-): Observable<TopicResponseDto> {
+  ): Observable<TopicResponseDto> {
 
     return this.apiTopicsIdPut$Json$Response(params).pipe(
       map((r: StrictHttpResponse<TopicResponseDto>) => r.body as TopicResponseDto)
@@ -241,7 +242,7 @@ export class TopicsService extends BaseService {
     id: string;
     context?: HttpContext
   }
-): Observable<StrictHttpResponse<TopicResponseDto>> {
+  ): Observable<StrictHttpResponse<TopicResponseDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, TopicsService.ApiTopicsIdDeletePath, 'delete');
     if (params) {
@@ -270,7 +271,7 @@ export class TopicsService extends BaseService {
     id: string;
     context?: HttpContext
   }
-): Observable<TopicResponseDto> {
+  ): Observable<TopicResponseDto> {
 
     return this.apiTopicsIdDelete$Plain$Response(params).pipe(
       map((r: StrictHttpResponse<TopicResponseDto>) => r.body as TopicResponseDto)
@@ -287,11 +288,12 @@ export class TopicsService extends BaseService {
     id: string;
     context?: HttpContext
   }
-): Observable<StrictHttpResponse<TopicResponseDto>> {
+  ): Observable<StrictHttpResponse<TopicResponseDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, TopicsService.ApiTopicsIdDeletePath, 'delete');
     if (params) {
       rb.path('id', params.id, {});
+      rb.header('Authorization', 'Bearer ' + localStorage.getItem("token"));
     }
 
     return this.http.request(rb.build({
@@ -316,7 +318,7 @@ export class TopicsService extends BaseService {
     id: string;
     context?: HttpContext
   }
-): Observable<TopicResponseDto> {
+  ): Observable<TopicResponseDto> {
 
     return this.apiTopicsIdDelete$Json$Response(params).pipe(
       map((r: StrictHttpResponse<TopicResponseDto>) => r.body as TopicResponseDto)
@@ -339,7 +341,7 @@ export class TopicsService extends BaseService {
     context?: HttpContext
     body?: CreatePostDto
   }
-): Observable<StrictHttpResponse<PostResponseDto>> {
+  ): Observable<StrictHttpResponse<PostResponseDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, TopicsService.ApiTopicsIdPostsPostPath, 'post');
     if (params) {
@@ -370,7 +372,7 @@ export class TopicsService extends BaseService {
     context?: HttpContext
     body?: CreatePostDto
   }
-): Observable<PostResponseDto> {
+  ): Observable<PostResponseDto> {
 
     return this.apiTopicsIdPostsPost$Plain$Response(params).pipe(
       map((r: StrictHttpResponse<PostResponseDto>) => r.body as PostResponseDto)
@@ -388,7 +390,7 @@ export class TopicsService extends BaseService {
     context?: HttpContext
     body?: CreatePostDto
   }
-): Observable<StrictHttpResponse<PostResponseDto>> {
+  ): Observable<StrictHttpResponse<PostResponseDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, TopicsService.ApiTopicsIdPostsPostPath, 'post');
     if (params) {
@@ -420,7 +422,7 @@ export class TopicsService extends BaseService {
     context?: HttpContext
     body?: CreatePostDto
   }
-): Observable<PostResponseDto> {
+  ): Observable<PostResponseDto> {
 
     return this.apiTopicsIdPostsPost$Json$Response(params).pipe(
       map((r: StrictHttpResponse<PostResponseDto>) => r.body as PostResponseDto)

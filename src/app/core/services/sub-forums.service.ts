@@ -41,7 +41,7 @@ export class SubForumsService extends BaseService {
     id: string;
     context?: HttpContext
   }
-): Observable<StrictHttpResponse<SubForumParentNestedResponseDto>> {
+  ): Observable<StrictHttpResponse<SubForumParentNestedResponseDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, SubForumsService.ApiSubForumsIdGetPath, 'get');
     if (params) {
@@ -70,7 +70,7 @@ export class SubForumsService extends BaseService {
     id: string;
     context?: HttpContext
   }
-): Observable<SubForumParentNestedResponseDto> {
+  ): Observable<SubForumParentNestedResponseDto> {
 
     return this.apiSubForumsIdGet$Plain$Response(params).pipe(
       map((r: StrictHttpResponse<SubForumParentNestedResponseDto>) => r.body as SubForumParentNestedResponseDto)
@@ -87,7 +87,7 @@ export class SubForumsService extends BaseService {
     id: string;
     context?: HttpContext
   }
-): Observable<StrictHttpResponse<SubForumParentNestedResponseDto>> {
+  ): Observable<StrictHttpResponse<SubForumParentNestedResponseDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, SubForumsService.ApiSubForumsIdGetPath, 'get');
     if (params) {
@@ -116,7 +116,7 @@ export class SubForumsService extends BaseService {
     id: string;
     context?: HttpContext
   }
-): Observable<SubForumParentNestedResponseDto> {
+  ): Observable<SubForumParentNestedResponseDto> {
 
     return this.apiSubForumsIdGet$Json$Response(params).pipe(
       map((r: StrictHttpResponse<SubForumParentNestedResponseDto>) => r.body as SubForumParentNestedResponseDto)
@@ -139,7 +139,7 @@ export class SubForumsService extends BaseService {
     context?: HttpContext
     body?: UpdateSubForumDto
   }
-): Observable<StrictHttpResponse<SubForumResponseDto>> {
+  ): Observable<StrictHttpResponse<SubForumResponseDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, SubForumsService.ApiSubForumsIdPutPath, 'put');
     if (params) {
@@ -170,7 +170,7 @@ export class SubForumsService extends BaseService {
     context?: HttpContext
     body?: UpdateSubForumDto
   }
-): Observable<SubForumResponseDto> {
+  ): Observable<SubForumResponseDto> {
 
     return this.apiSubForumsIdPut$Plain$Response(params).pipe(
       map((r: StrictHttpResponse<SubForumResponseDto>) => r.body as SubForumResponseDto)
@@ -188,12 +188,13 @@ export class SubForumsService extends BaseService {
     context?: HttpContext
     body?: UpdateSubForumDto
   }
-): Observable<StrictHttpResponse<SubForumResponseDto>> {
+  ): Observable<StrictHttpResponse<SubForumResponseDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, SubForumsService.ApiSubForumsIdPutPath, 'put');
     if (params) {
       rb.path('id', params.id, {});
       rb.body(params.body, 'application/*+json');
+      rb.header('Authorization', 'Bearer ' + localStorage.getItem("token"));
     }
 
     return this.http.request(rb.build({
@@ -219,7 +220,7 @@ export class SubForumsService extends BaseService {
     context?: HttpContext
     body?: UpdateSubForumDto
   }
-): Observable<SubForumResponseDto> {
+  ): Observable<SubForumResponseDto> {
 
     return this.apiSubForumsIdPut$Json$Response(params).pipe(
       map((r: StrictHttpResponse<SubForumResponseDto>) => r.body as SubForumResponseDto)
@@ -241,7 +242,7 @@ export class SubForumsService extends BaseService {
     id: string;
     context?: HttpContext
   }
-): Observable<StrictHttpResponse<SubForumResponseDto>> {
+  ): Observable<StrictHttpResponse<SubForumResponseDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, SubForumsService.ApiSubForumsIdDeletePath, 'delete');
     if (params) {
@@ -270,7 +271,7 @@ export class SubForumsService extends BaseService {
     id: string;
     context?: HttpContext
   }
-): Observable<SubForumResponseDto> {
+  ): Observable<SubForumResponseDto> {
 
     return this.apiSubForumsIdDelete$Plain$Response(params).pipe(
       map((r: StrictHttpResponse<SubForumResponseDto>) => r.body as SubForumResponseDto)
@@ -287,11 +288,12 @@ export class SubForumsService extends BaseService {
     id: string;
     context?: HttpContext
   }
-): Observable<StrictHttpResponse<SubForumResponseDto>> {
+  ): Observable<StrictHttpResponse<SubForumResponseDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, SubForumsService.ApiSubForumsIdDeletePath, 'delete');
     if (params) {
       rb.path('id', params.id, {});
+      rb.header('Authorization', 'Bearer ' + localStorage.getItem("token"));
     }
 
     return this.http.request(rb.build({
@@ -316,7 +318,7 @@ export class SubForumsService extends BaseService {
     id: string;
     context?: HttpContext
   }
-): Observable<SubForumResponseDto> {
+  ): Observable<SubForumResponseDto> {
 
     return this.apiSubForumsIdDelete$Json$Response(params).pipe(
       map((r: StrictHttpResponse<SubForumResponseDto>) => r.body as SubForumResponseDto)
@@ -339,7 +341,7 @@ export class SubForumsService extends BaseService {
     context?: HttpContext
     body?: CreateTopicDto
   }
-): Observable<StrictHttpResponse<TopicResponseDto>> {
+  ): Observable<StrictHttpResponse<TopicResponseDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, SubForumsService.ApiSubForumsIdTopicsPostPath, 'post');
     if (params) {
@@ -370,7 +372,7 @@ export class SubForumsService extends BaseService {
     context?: HttpContext
     body?: CreateTopicDto
   }
-): Observable<TopicResponseDto> {
+  ): Observable<TopicResponseDto> {
 
     return this.apiSubForumsIdTopicsPost$Plain$Response(params).pipe(
       map((r: StrictHttpResponse<TopicResponseDto>) => r.body as TopicResponseDto)
@@ -388,7 +390,7 @@ export class SubForumsService extends BaseService {
     context?: HttpContext
     body?: CreateTopicDto
   }
-): Observable<StrictHttpResponse<TopicResponseDto>> {
+  ): Observable<StrictHttpResponse<TopicResponseDto>> {
 
     const rb = new RequestBuilder(this.rootUrl, SubForumsService.ApiSubForumsIdTopicsPostPath, 'post');
     if (params) {
@@ -420,7 +422,7 @@ export class SubForumsService extends BaseService {
     context?: HttpContext
     body?: CreateTopicDto
   }
-): Observable<TopicResponseDto> {
+  ): Observable<TopicResponseDto> {
 
     return this.apiSubForumsIdTopicsPost$Json$Response(params).pipe(
       map((r: StrictHttpResponse<TopicResponseDto>) => r.body as TopicResponseDto)

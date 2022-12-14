@@ -1,19 +1,18 @@
-.topcontainer{
+.topcontainer {
     width: 100em;
     background-color: white;
     margin-top: 1em;
 }
 
-::ng-deep .p-panel .p-panel-header{
+::ng-deep .p-panel .p-panel-header {
     background-color: #2c374c;
     color: white;
 }
 
-:host ::ng-deep .p-panel .p-panel-content{
+:host ::ng-deep .p-panel .p-panel-content {
     background-color: #ECF0F1;
 }
 
-::ng-deep .p-button{
+::ng-deep .p-button {
     background-color: #2c374c;
 }
-

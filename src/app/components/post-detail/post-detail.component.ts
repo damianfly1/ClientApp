@@ -70,28 +70,24 @@ export class PostDetailComponent implements OnInit {
     return formatDate(this.post.createdAt!, 'short', 'en');
   }
   upvote() {
-    console.log("up");
     this.post.points++;
     this.likedBy.userId = this.user!.id;
     this.post.likedBy.push(this.likedBy);
-    this.postsService.apiPostUpvote$Json$Response({ id: this.post.id }).subscribe(res => console.log(res));
+    this.postsService.apiPostUpvote$Json$Response({ id: this.post.id }).subscribe();
     this.liked = true;
   }
   downvote() {
-    console.log("down");
     this.post.points--;
-    this.post.likedBy = this.post.likedBy.filter(x=> x.userId!=this.user!.id);
-    this.postsService.apiPostDownvote$Json$Response({ id: this.post.id }).subscribe(res => console.log(res))
+    this.post.likedBy = this.post.likedBy.filter(x => x.userId != this.user!.id);
+    this.postsService.apiPostDownvote$Json$Response({ id: this.post.id }).subscribe()
     this.liked = false;
   }
   isLiked() {
-    console.log(this.post);
     if (this.user != null) {
       for (let i = 0; i < this.post.likedBy.length; i++) {
-        if (this.post.likedBy[i].userId == this.user.id){
-          console.log("polajkowany!");
+        if (this.post.likedBy[i].userId == this.user.id) {
           this.liked = true;
-        } 
+        }
       }
     }
   }

@@ -8,15 +8,15 @@ import { MenuItem } from 'primeng/api';
   styleUrls: ['./upload.component.css']
 })
 export class UploadComponent implements OnInit {
-  
-  
+
+
 
   @Input() userId!: string;
   message: string = '';
-  response!: {dbPath: ''};
+  response!: { dbPath: '' };
   @Output() public onUploadFinished = new EventEmitter();
 
-  
+
 
   constructor(private http: HttpClient) { }
 
@@ -30,33 +30,33 @@ export class UploadComponent implements OnInit {
     let fileToUpload = <File>files![0];
     const formData = new FormData();
     formData.append('file', fileToUpload, fileToUpload.name);
-    
-    this.http.post('https://localhost:7153/api/users/' + this.userId + '/avatar', formData, {observe: 'events'})
+
+    this.http.post('https://localhost:7153/api/users/' + this.userId + '/avatar', formData, { observe: 'events', headers: { Authorization: 'Bearer ' + localStorage.getItem('token') } })
       .subscribe({
         next: (event) => {
-        if (event.type === HttpEventType.Response) {
-          this.message = 'Awatar dodany, odśwież stronę aby zobaczyć';
-          this.onUploadFinished.emit(event.body);
-        }
-      },
-      error: (err: HttpErrorResponse) => console.log(err)
-    });
+          if (event.type === HttpEventType.Response) {
+            this.message = 'Awatar dodany, odśwież stronę aby zobaczyć';
+            this.onUploadFinished.emit(event.body);
+          }
+        },
+        error: (err: HttpErrorResponse) => this.message = "Wystąpił błąd"
+      });
   }
 
-  uploadFinished = (event:any) => { 
-    this.response = event; 
+  uploadFinished = (event: any) => {
+    this.response = event;
   }
 
   deleteAvatar() {
-    return this.http.delete('https://localhost:7153/api/users/' + this.userId + '/avatar', {observe: 'events'}).subscribe({
+    return this.http.delete('https://localhost:7153/api/users/' + this.userId + '/avatar', { observe: 'events', headers: { Authorization: 'Bearer ' + localStorage.getItem('token') } }).subscribe({
       next: (event) => {
-      if (event.type === HttpEventType.Response) {
-        this.message = 'Awatar usunięty, odśwież stronę aby zobaczyć';
-        this.onUploadFinished.emit(event.body);
-      }
-    },
-    error: (err: HttpErrorResponse) => console.log(err)
-  });
+        if (event.type === HttpEventType.Response) {
+          this.message = 'Awatar usunięty, odśwież stronę aby zobaczyć';
+          this.onUploadFinished.emit(event.body);
+        }
+      },
+      error: (err: HttpErrorResponse) => this.message = "Wystąpił błąd"
+    });
   }
 
 }

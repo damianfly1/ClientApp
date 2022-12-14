@@ -31,7 +31,6 @@ export class CategoriesComponent implements OnInit {
   }
 
   addNewCategory(){
-    console.log(this.forumId)
     this.forumsService.apiForumsIdCategoriesPost$Json({id: this.forumId, body: this.newCategory} )
     .subscribe(category =>{
       Object.assign(this.createdNewCategory, category);

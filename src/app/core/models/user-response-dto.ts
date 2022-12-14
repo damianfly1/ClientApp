@@ -9,4 +9,5 @@ export interface UserResponseDto{
     postCount: number;
     avatarUrl: string | null;
     role: string | null;
+    reputation: number;
 }
